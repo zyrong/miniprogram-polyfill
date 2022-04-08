@@ -30,15 +30,14 @@
   "dependencies": {
     "tslib": "^2.3.1"
   },
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "bugs": {
     "url": "https://github.com/zyrong/mini-program-polyfill/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zyrong/mini-program-polyfill"
+    "url": "https://github.com/zyrong/mini-program-polyfill/blob/master/packages/blob"
   },
-  "homepage": "https://github.com/zyrong/mini-program-polyfill/tree/master/pacakges/blob/README.md",
+  "homepage": "https://github.com/zyrong/mini-program-polyfill/blob/master/packages/blob/README.md",
   "license": "MIT"
 }

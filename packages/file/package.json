@@ -36,8 +36,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zyrong/mini-program-polyfill"
+    "url": "https://github.com/zyrong/mini-program-polyfill/tree/master/packages/file"
   },
-  "homepage": "https://github.com/zyrong/mini-program-polyfill/README.md",
+  "homepage": "https://github.com/zyrong/mini-program-polyfill/tree/master/packages/file/README.md",
   "license": "MIT"
 }
