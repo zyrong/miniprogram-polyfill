@@ -1,0 +1,43 @@
+{
+  "name": "mini-program-file",
+  "version": "1.0.0",
+  "private": false,
+  "description": "mini program file polyfill",
+  "jsnext:main": "dist/index.es.js",
+  "module": "dist/index.es.js",
+  "main": "dist/index.js",
+  "miniprogram": "dist",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "mini-program",
+    "wx",
+    "支付宝",
+    "微信",
+    "小程序",
+    "file",
+    "polyfill"
+  ],
+  "scripts": {
+    "build": "gulp -f ./gulpfile.ts build",
+    "dev": "gulp -f ./gulpfile.ts dev"
+  },
+  "author": "zyrong",
+  "dependencies": {
+    "mini-program-blob": "workspace:^1.0.0",
+    "tslib": "^2.3.1"
+  },
+  "devDependencies": {},
+  "bugs": {
+    "url": "https://github.com/zyrong/mini-program-polyfill/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zyrong/mini-program-polyfill"
+  },
+  "homepage": "https://github.com/zyrong/mini-program-polyfill/README.md",
+  "license": "MIT"
+}

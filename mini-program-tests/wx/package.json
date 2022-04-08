@@ -1,0 +1,14 @@
+{
+  "name": "wx-blob-example",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+  },
+  "dependencies": {
+    "mini-program-blob": "1.0.0",
+    "mini-program-file": "1.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
