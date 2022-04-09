@@ -1,4 +1,4 @@
-# mini-program-file
+# mini-program-file ![](https://badgen.net/npm/v/mini-program-file)  ![](https://badgen.net/npm/types/mini-program-file)  ![](https://badgen.net/npm/dt/mini-program-file) ![](https://badgen.net/badge/language/typescript/blue)
 
 小程序的File polyfill。
 

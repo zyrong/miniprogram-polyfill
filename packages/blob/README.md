@@ -1,4 +1,5 @@
-# mini-program-blob
+# mini-program-blob  ![](https://badgen.net/npm/v/mini-program-blob)  ![](https://badgen.net/npm/types/mini-program-blob) ![](https://badgen.net/npm/dt/mini-program-blob) ![](https://badgen.net/badge/language/typescript/blue)
+
 
 小程序的Blob polyfill。  
 > 此库基于[Blob.js](https://github.com/eligrey/Blob.js)修改为小程序版本，并修复[存在的问题](https://github.com/eligrey/Blob.js/pull/80)。
