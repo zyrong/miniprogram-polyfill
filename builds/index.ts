@@ -6,6 +6,7 @@ import { Transform, TransformCallback } from 'stream'
 import Vinyl from 'vinyl'
 import rimraf from 'rimraf'
 import terser from 'gulp-terser'
+import { transform as babelTransform } from '@babel/core'
 import { exec, ExecOptions, execFile } from 'child_process'
 
 const root = path.join(__dirname, '../')
@@ -26,6 +27,7 @@ export function buildCjs(
     gulp
       .src(srcGlob)
       .pipe(buildTs('commonjs'))
+      .pipe(removeDefault())
       .pipe(gulp_if(compress, terser_()))
       .pipe(rename(filenameMap))
       .pipe(gulp.dest(dest))
@@ -140,5 +142,19 @@ export function exec_(command: string, options: ExecOptions) {
     exec(command, options, (err, stdout, stderr) => {
       err ? reject(err) : resolve(stdout)
     })
+  })
+}
+
+export function removeDefault() {
+  return transformWrap((file, cb) => {
+    if (file.isBuffer() && file.extname === '.js') {
+      const result = babelTransform(file.contents.toString(), {
+        plugins: ['babel-plugin-add-module-exports'],
+      })
+      if (result && result.code) {
+        file.contents = Buffer.from(result.code)
+      }
+    }
+    cb(null, file)
   })
 }
