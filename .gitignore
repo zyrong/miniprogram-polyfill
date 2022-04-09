@@ -4,3 +4,4 @@ node_modules
 todo
 miniprogram_npm
 .pnpm-debug.log
+coverage
