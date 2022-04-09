@@ -5,13 +5,13 @@ Page({
   onLoad(query) {
     // 页面加载
     const blob = new Blob(['string'])
-    blob.arrayBuffer().then(buffer => {
-      console.log(buffer);
+    blob.arrayBuffer().then((buffer) => {
+      console.log(buffer)
     })
 
     const file = new File(['filecontent'], 'filename')
-    file.arrayBuffer().then(buffer => {
-      console.log(buffer);
+    file.arrayBuffer().then((buffer) => {
+      console.log(buffer)
     })
   },
   onReady() {
