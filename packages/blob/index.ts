@@ -235,6 +235,7 @@ const textDecode =
     ? TextDecoder.prototype.decode.bind(new TextDecoder())
     : stringDecode
 
+export type BufferSource = ArrayBufferView | ArrayBuffer
 export type BlobPolyfillPart = BufferSource | BlobPolyfill | string
 export interface BlobPolyfillPropertyBag {
   type?: string

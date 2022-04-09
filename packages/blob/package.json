@@ -1,6 +1,6 @@
 {
   "name": "mini-program-blob",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "mini program blob polyfill",
   "jsnext:main": "dist/index.es.js",
@@ -10,7 +10,8 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "index.d.ts"
   ],
   "keywords": [
     "mini-program",
@@ -27,9 +28,7 @@
     "release": "release-it"
   },
   "author": "zyrong",
-  "dependencies": {
-    "tslib": "^2.3.1"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "bugs": {
     "url": "https://github.com/zyrong/mini-program-polyfill/issues"

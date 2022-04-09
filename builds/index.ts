@@ -2,7 +2,7 @@ import gulp from 'gulp'
 import ts from 'gulp-typescript'
 import { TaskCallback } from 'undertaker'
 import path from 'path'
-import { Transform } from 'stream'
+import { Transform, TransformCallback } from 'stream'
 import Vinyl from 'vinyl'
 import rimraf from 'rimraf'
 import terser from 'gulp-terser'
@@ -26,7 +26,7 @@ export function buildCjs(
     gulp
       .src(srcGlob)
       .pipe(buildTs('commonjs'))
-      .pipe(gulp_if(compress, terser()))
+      .pipe(gulp_if(compress, terser_()))
       .pipe(rename(filenameMap))
       .pipe(gulp.dest(dest))
       .on('finish', () => {
@@ -45,7 +45,7 @@ export function buildEsm(
     gulp
       .src(srcGlob)
       .pipe(buildTs('ES6'))
-      .pipe(gulp_if(compress, terser()))
+      .pipe(gulp_if(compress, terser_()))
       .pipe(rename(filenameMap))
       .pipe(gulp.dest(dest))
       .on('finish', () => {
@@ -66,20 +66,45 @@ export function buildTs(module: 'ES6' | 'commonjs') {
  * }
  */
 export function rename(filenameMap: FilenameMap) {
-  return transformWrap((file) => {
+  return transformWrap((file, cb) => {
     const newFilename = filenameMap[file.basename]
     if (newFilename) {
       file.basename = newFilename
     }
+    cb(null, file)
   })
 }
 
 export function gulp_if<T extends NodeJS.WritableStream>(
-  bool: boolean,
+  bool: boolean | ((file: Vinyl) => boolean),
   a: T,
   b?: T
 ) {
-  return bool ? a : b ? b : transformWrap(() => {})
+  return bool
+    ? a
+    : b
+    ? b
+    : transformWrap((file, cb) => {
+        cb(null, file)
+      })
+}
+
+function terser_(options?: any) {
+  const terserStream = terser(options)
+  return transformWrap((file, cb) => {
+    if (file.extname === '.js') {
+      terserStream.write(file)
+      terserStream.end()
+      terserStream.on('data', (newFile) => {
+        file = newFile
+      })
+      terserStream.on('end', () => {
+        cb(null, file)
+      })
+    } else {
+      cb(null, file)
+    }
+  })
 }
 
 export function delDist(path: string) {
@@ -91,18 +116,20 @@ export function delDist(path: string) {
 }
 
 export function logFile() {
-  return transformWrap((file) => {
+  return transformWrap((file, cb) => {
     if (file.isBuffer()) {
       console.log(file.contents.toString())
     }
+    cb(null, file)
   })
 }
 
-export function transformWrap(transform: (file: Vinyl) => void) {
+export function transformWrap(
+  transform: (file: Vinyl, cb: TransformCallback) => void
+) {
   return new Transform({
     transform(file: Vinyl, enc, cb) {
-      transform(file)
-      cb(null, file)
+      transform(file, cb)
     },
     objectMode: true,
   })
