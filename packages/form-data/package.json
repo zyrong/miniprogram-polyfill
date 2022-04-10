@@ -1,8 +1,8 @@
 {
-  "name": "mini-program-file",
-  "version": "1.0.0",
+  "name": "mini-program-formdata",
+  "version": "1.0.1",
   "private": false,
-  "description": "mini program file polyfill",
+  "description": "mini program blob polyfill",
   "jsnext:main": "dist/index.es.js",
   "module": "dist/index.es.js",
   "main": "dist/index.js",
@@ -19,27 +19,24 @@
     "支付宝",
     "微信",
     "小程序",
-    "file",
+    "blob",
     "polyfill"
   ],
   "scripts": {
     "build": "gulp -f ./gulpfile.ts build",
     "dev": "gulp -f ./gulpfile.ts dev",
-    "test": "jest",
-    "release": "pnpm run test && pnpm publish"
+    "release": "release-it"
   },
   "author": "zyrong",
-  "dependencies": {
-    "mini-program-blob": "workspace:^1.0.0",
-    "tslib": "^2.3.1"
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "bugs": {
     "url": "https://github.com/zyrong/mini-program-polyfill/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zyrong/mini-program-polyfill/tree/master/packages/file"
+    "url": "https://github.com/zyrong/mini-program-polyfill/blob/master/packages/blob"
   },
-  "homepage": "https://github.com/zyrong/mini-program-polyfill/blob/master/packages/file/README.md",
+  "homepage": "https://github.com/zyrong/mini-program-polyfill/blob/master/packages/blob/README.md",
   "license": "MIT"
 }

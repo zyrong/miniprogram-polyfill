@@ -25,7 +25,8 @@
   "scripts": {
     "build": "gulp -f ./gulpfile.ts build",
     "dev": "gulp -f ./gulpfile.ts dev",
-    "release": "release-it"
+    "test": "jest",
+    "release": "pnpm run test && pnpm publish"
   },
   "author": "zyrong",
   "dependencies": {},
