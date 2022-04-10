@@ -1,6 +1,6 @@
 {
   "name": "mini-program-file",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "mini program file polyfill",
   "jsnext:main": "dist/index.es.js",
@@ -26,7 +26,7 @@
     "build": "gulp -f ./gulpfile.ts build",
     "dev": "gulp -f ./gulpfile.ts dev",
     "test": "jest",
-    "release": "pnpm run test && pnpm publish"
+    "release": "pnpm run test && pnpm run build && pnpm publish"
   },
   "author": "zyrong",
   "publishConfig": {
