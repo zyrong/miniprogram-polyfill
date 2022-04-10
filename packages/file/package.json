@@ -29,6 +29,9 @@
     "release": "pnpm run test && pnpm publish"
   },
   "author": "zyrong",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {
     "mini-program-blob": "workspace:^1.0.0",
     "tslib": "^2.3.1"

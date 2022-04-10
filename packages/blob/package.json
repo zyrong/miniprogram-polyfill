@@ -29,6 +29,9 @@
     "release": "pnpm run test && pnpm publish"
   },
   "author": "zyrong",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "dependencies": {},
   "devDependencies": {},
   "bugs": {
