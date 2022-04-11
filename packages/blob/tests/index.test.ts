@@ -108,3 +108,11 @@ it('text', (done) => {
 it('toString', () => {
   expect(blob.toString()).toBe('[object Blob]')
 })
+
+it('new Blob([{}])', (done) => {
+  const blob = new Blob([{} as any])
+  blob.text().then((text) => {
+    expect(text).toBe('[object Object]')
+    done()
+  })
+})
