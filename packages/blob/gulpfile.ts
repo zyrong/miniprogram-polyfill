@@ -5,6 +5,7 @@ import path from 'path'
 import packageJson from './package.json'
 import { Transform } from 'stream'
 import Vinyl from 'vinyl'
+import fs from 'fs/promises'
 import { exec, ExecOptions, execFile } from 'child_process'
 import {
   delDist,
@@ -55,18 +56,26 @@ export function dev() {
   })
 }
 
-export function build(done: TaskCallback) {
-  delDist(delPath).then(() => {
-    Promise.all([
+export async function build(done: TaskCallback) {
+  try {
+    await delDist(delPath)
+    await Promise.all([
       buildCjs(srcGlob, dest, { 'index.js': cjsFilename }, true),
       buildEsm(srcGlob, dest, { 'index.js': esmFilename }, true),
-    ]).then(
-      () => {
-        done()
-      },
-      (err) => {
-        console.log(err)
-      }
-    )
+    ])
+    await removeDTS_buffer()
+    done()
+  } catch (error: any) {
+    done(error)
+  }
+}
+
+function removeDTS_buffer() {
+  return new Promise((resolve, reject) => {
+    const path = './dist/index.d.ts'
+    fs.readFile(path).then((buffer) => {
+      const string = buffer.toString().replace(/\s.*?private _buffer;/, '')
+      fs.writeFile(path, string).then(resolve)
+    })
   })
 }
