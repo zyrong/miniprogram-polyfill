@@ -1,8 +1,8 @@
 {
   "name": "mini-program-polyfill",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
-  "description": "小程序 polyfill",
+  "description": "小程序 mini-program polyfill",
   "main": "index.js",
   "files": [
     "README.md"
@@ -10,7 +10,8 @@
   "scripts": {
     "eslint:fix": "eslint --config ./.eslintrc.js --fix --ext .js,.ts ./",
     "prettier": "prettier --config ./.prettierrc.js --write **/*.{js,ts}",
-    "test": "jest"
+    "test": "jest",
+    "publish": "pnpm publish"
   },
   "lint-staged": {
     "*.{js,ts}": [
@@ -75,5 +76,16 @@
     "polyfill"
   ],
   "author": "zyrong",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bugs": {
+    "url": "https://github.com/zyrong/mini-program-polyfill/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zyrong/mini-program-polyfill"
+  },
+  "homepage": "https://github.com/zyrong/mini-program-polyfill/blob/master/README.md",
   "license": "MIT"
 }
