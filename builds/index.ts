@@ -1,3 +1,4 @@
+import os from 'os'
 import gulp from 'gulp'
 import ts from 'gulp-typescript'
 import { TaskCallback } from 'undertaker'
@@ -157,4 +158,21 @@ export function removeDefault() {
     }
     cb(null, file)
   })
+}
+
+export function getIP() {
+  const nets = os.networkInterfaces()
+
+  for (const k in nets) {
+    const addressList = nets[k]
+    if (!addressList) continue
+
+    for (let i = 0; i < addressList.length; i++) {
+      const { family, address, internal } = addressList[i]
+
+      if (family === 'IPv4' && address !== '127.0.0.1' && !internal) {
+        return address
+      }
+    }
+  }
 }

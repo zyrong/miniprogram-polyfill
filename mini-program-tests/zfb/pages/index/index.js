@@ -5,13 +5,31 @@ Page({
   onLoad(query) {
     // 页面加载
     const blob = new Blob(['string'])
-    blob.arrayBuffer().then((buffer) => {
-      console.log(buffer)
+    blob.text().then((text) => {
+      console.log(text)
     })
 
     const file = new File(['filecontent'], 'filename')
-    file.arrayBuffer().then((buffer) => {
-      console.log(buffer)
+    file.text().then((text) => {
+      console.log(text)
+    })
+
+    const fd = new FormData()
+    fd.append('string', 'string')
+    fd.append('file', new File(['filecontent'], 'filename'))
+
+    const IP = '192.168.50.28'
+    const PORT = '3333'
+
+    // IDE环境data为arraybuffer会提示无效参数，目前只能真机进行测试。
+    my.request({
+      url: `http://${IP}:${PORT}/post`,
+      method: 'POST',
+      data: fd,
+      dataType: 'text',
+      success(res) {
+        console.log(res.data)
+      },
     })
   },
   onReady() {

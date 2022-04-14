@@ -7,6 +7,7 @@
   "dependencies": {
     "mini-program-blob": "1.0.0",
     "mini-program-file": "1.0.0",
+    "mini-program-formdata": "1.0.0",
     "tslib":"^2.3.1"
   },
   "keywords": [],
