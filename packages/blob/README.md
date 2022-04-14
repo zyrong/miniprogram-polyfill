@@ -2,7 +2,7 @@
 
 
 小程序的Blob polyfill。  
-> 此库基于[Blob.js](https://github.com/eligrey/Blob.js)修改为小程序版本，并修复[存在的问题](https://github.com/eligrey/Blob.js/pull/80)。
+> 此库参考[Blob.js](https://github.com/eligrey/Blob.js)修改为小程序版本，并修复[存在的问题](https://github.com/eligrey/Blob.js/pull/80)。
 
 <br/>
 
