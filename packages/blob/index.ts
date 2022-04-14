@@ -241,6 +241,10 @@ export interface BlobPolyfillPropertyBag {
   type?: string
 }
 
+function isSamePolyfill(val: any): val is BlobPolyfill {
+  return val._buffer instanceof Uint8Array
+}
+
 class BlobPolyfill {
   private _buffer: Uint8Array
   size: number
@@ -253,7 +257,10 @@ class BlobPolyfill {
     const chunks: Array<number[] | Uint8Array> = new Array(blobParts.length)
     for (let i = 0, len = blobParts.length; i < len; i++) {
       const chunk = blobParts[i]
-      if (chunk instanceof BlobPolyfill) {
+      // 不使用instanceof BlobPolyfill判断的原因:
+      // 当使用mini-program-formdata，同时又使用mini-program-blob/file的版本和mini-program-formdata内置的不相同时，
+      // 此时由于是两个不同的构造函数，所以instanceof判断会出现问题。
+      if (isSamePolyfill(chunk)) {
         chunks[i] = chunk._buffer
       } else if (typeof chunk === 'string') {
         chunks[i] = textEncode(chunk)
