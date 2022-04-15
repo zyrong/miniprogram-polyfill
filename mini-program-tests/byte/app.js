@@ -1,8 +1,15 @@
 const FormData = require('mini-program-formdata')
 
-globalThis.FormData = FormData
+// if(typeof globalThis !== 'object'){
+//   Object.defineProperty(Object.prototype, 'globalThis_', {
+//     get() {
+//       return this
+//     },
+//   })
+// }
+// globalThis_.FormData = FormData
 
-const rawRequest = wx.request
+const rawRequest = tt.request
 function request(reqOpt) {
   if (reqOpt.data instanceof FormData) {
     const blob = reqOpt.data._blob()
@@ -16,12 +23,12 @@ function request(reqOpt) {
     rawRequest(reqOpt)
   }
 }
-Object.defineProperty(wx, 'request', {
+Object.defineProperty(tt, 'request', {
   get() {
     return request
   },
 })
 
 App({
-  onLaunch() {},
+  onLaunch: function () {},
 })

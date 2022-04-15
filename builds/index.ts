@@ -1,8 +1,11 @@
 import os from 'os'
 import gulp from 'gulp'
 import ts from 'gulp-typescript'
+import tma from 'tt-ide-cli'
+import minidev from 'minidev'
 import { TaskCallback } from 'undertaker'
 import path from 'path'
+import fs from 'fs/promises'
 import { Transform, TransformCallback } from 'stream'
 import Vinyl from 'vinyl'
 import rimraf from 'rimraf'
@@ -16,6 +19,7 @@ export const zfbTestPath = path.join(root, 'mini-program-tests/zfb')
 export const wxTestPath = path.join(root, 'mini-program-tests/wx')
 export const wxCliPath =
   '/Applications/wechatwebdevtools.app/Contents/MacOS/cli'
+export const byteTestPath = path.join(root, 'mini-program-tests/byte')
 
 type FilenameMap = { [rawFilename: string]: string }
 export function buildCjs(
@@ -175,4 +179,65 @@ export function getIP() {
       }
     }
   }
+}
+
+export function wx_buildNpm() {
+  return new Promise<void>((resolve, reject) => {
+    // https://developers.weixin.qq.com/miniprogram/dev/devtools/cli.html#%E8%87%AA%E5%8A%A8%E9%A2%84%E8%A7%88
+    fs.access(wxCliPath).then(() => {
+      execFile(
+        `${wxCliPath}`,
+        ['build-npm', '--project', wxTestPath],
+        (err, stdout, stderr) => {
+          err ? reject(err) : resolve()
+        }
+      )
+    })
+  })
+}
+
+export function zfb_buildNpm() {
+  return minidev.build({
+    project: zfbTestPath,
+  })
+}
+
+export function byte_buildNpm() {
+  // https://microapp.bytedance.com/docs/zh-CN/mini-app/develop/developer-instrument/development-assistance/ide-order-instrument
+  // return tma.buildNpm({
+  //   project: {
+  //     path: byteTestPath,
+  //   },
+  // })
+  // return new Promise<void>((resolve, reject) => {
+  //   execFile(
+  //     `${root}`,
+  //     ['pnpm ', 'exec', 'tma', 'build-npm', '--project-path', byteTestPath],
+  //     (err, stdout, stderr) => {
+  //       err ? reject(err) : resolve()
+  //     }
+  //   )
+  // })
+}
+
+export function buildNpm() {
+  return Promise.all([
+    wx_buildNpm(),
+    zfb_buildNpm(),
+    // , byte_buildNpm()
+  ])
+}
+
+export function npmlink(pkgPath: string) {
+  return Promise.all([
+    exec_(`pnpm link ${pkgPath}`, {
+      cwd: wxTestPath,
+    }),
+    exec_(`pnpm link ${pkgPath}`, {
+      cwd: zfbTestPath,
+    }),
+    exec_(`pnpm link ${pkgPath}`, {
+      cwd: byteTestPath,
+    }),
+  ])
 }

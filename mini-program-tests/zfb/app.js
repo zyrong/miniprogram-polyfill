@@ -18,9 +18,10 @@ function request(reqOpt) {
     reqOpt.headers['content-type'] = blob.type
     blob.arrayBuffer().then((buffer) => {
       reqOpt.data = buffer
-      // console.log(reqOpt);
       rawRequest(reqOpt)
     })
+  } else {
+    rawRequest(reqOpt)
   }
 }
 Object.defineProperty(my, 'request', {
