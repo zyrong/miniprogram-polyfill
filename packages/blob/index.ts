@@ -242,7 +242,7 @@ export interface BlobPolyfillPropertyBag {
 }
 
 function isSamePolyfill(val: any): val is BlobPolyfill {
-  return val._buffer instanceof Uint8Array
+  return val.arrayBuffer && val._buffer instanceof Uint8Array
 }
 
 class BlobPolyfill {
