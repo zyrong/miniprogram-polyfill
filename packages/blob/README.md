@@ -9,6 +9,7 @@
 ## 支持的小程序
 - 微信小程序
 - 支付宝小程序
+- 字节小程序
 > 其他小程序没有进行测试，可以自行测试
 
 <br/>
@@ -31,7 +32,9 @@ blob.arrayBuffer().then(buffer => {
   console.log(buffer)
 })
 ```
-> TIP: 支付宝小程序IDE环境下globalThis为undefined，[解决方法](https://github.com/zyrong/mini-program-polyfill/issues/1)  
+> TIP:   
+> 支付宝小程序IDE环境下globalThis为undefined，[解决方法](https://github.com/zyrong/mini-program-polyfill/issues/1)  
+>字节小程序所有环境的globalThis都为undefined,暂时无法设置全局变量。  
 
 <br/>
 
