@@ -3,28 +3,21 @@ import BlobPolyfill, {
   BlobPolyfillPropertyBag,
 } from 'mini-program-blob'
 import FilePolyfill, { FilePolyfillPropertyBag } from 'mini-program-file'
-const G =
-  typeof globalThis === 'object'
-    ? globalThis
-    : typeof window === 'object'
-    ? window
-    : typeof self === 'object'
-    ? self
-    : this || Object.create(null) // 支付宝小程序编辑器环境不存在globalThis
 
-const Blob: {
+const Blob_: {
   new (
     blobParts?: BlobPolyfillPart[],
     options?: BlobPolyfillPropertyBag
   ): BlobPolyfill
-} = G.Blob || BlobPolyfill
-const File: {
+} = typeof Blob === 'object' ? Blob : BlobPolyfill
+
+const File_: {
   new (
     fileBits: BlobPolyfillPart[],
     fileName: string,
     options?: FilePolyfillPropertyBag
   ): FilePolyfill
-} = G.File || FilePolyfill
+} = typeof File === 'object' ? File : FilePolyfill
 
 const is = {
   blob(value: any): value is BlobPolyfill {
@@ -56,7 +49,7 @@ function normalizeArgs(
   // 兼容其他Blob/File polyfill
   if (isBlob || is.file(value)) {
     filename = filename || (isBlob ? 'blob' : (value as FilePolyfill).name)
-    isBlob && (value = new File([value], filename))
+    isBlob && (value = new File_([value], filename))
   }
   return [name, value as FilePolyfill | string]
 }
@@ -184,7 +177,7 @@ class FormDataPolyfill {
           )
     }
     chunks.push(`--${boundary}--`)
-    return new Blob(chunks, {
+    return new Blob_(chunks, {
       type: 'multipart/form-data; boundary=' + boundary,
     })
   }
@@ -196,7 +189,7 @@ class FormDataPolyfill {
 
 if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
   // eslint-disable-next-line @typescript-eslint/no-extra-semi
-  ;(FormDataPolyfill.prototype as any)[Symbol.toStringTag] = 'Blob'
+  ;(FormDataPolyfill.prototype as any)[Symbol.toStringTag] = 'FormData'
 }
 
 export default FormDataPolyfill
