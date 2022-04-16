@@ -28,14 +28,14 @@
     "build": "gulp -f ./gulpfile.ts build",
     "dev": "gulp -f ./gulpfile.ts dev",
     "test": "jest",
-    "release": "pnpm run test && pnpm run build && pnpm publish"
+    "release": "ts-node ../../builds/release.ts"
   },
   "author": "zyrong",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "mini-program-blob": "workspace:^1.0.3",
+    "mini-program-blob": "workspace:^1.0.4",
     "tslib": "^2.3.1"
   },
   "bugs": {

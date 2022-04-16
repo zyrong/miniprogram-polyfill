@@ -3,7 +3,6 @@ import { promisify } from 'util'
 const exec = promisify(exec_)
 
 function stdOutput(std: { stderr: string; stdout: string }) {
-  console.log(std)
   if (std) {
     console.log(std.stderr)
     console.log(std.stdout)

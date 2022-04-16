@@ -69,15 +69,15 @@ async function release() {
     await execPipeline([
       { command: 'pnpm run test' },
       { command: 'pnpm run build' },
-      { command: 'pnpm publish' },
+      { command: 'pnpm publish --no-git-checks' },
     ])
-    await syncVersion(pkg.name, answers['version'])
-    chalk.green('SUCCESS')
+    await syncVersion(pkg.name, pkg.version)
+    console.log(chalk.green('SUCCESS'))
   } catch (error) {
     // fallback
     pkg.version = rawVersion
     await fs.writeFile(pkgJsonPath, JSON.stringify(pkg, null, 2))
-    console.error(error)
+    console.log(chalk.red(error))
   }
 }
 release()
