@@ -11,9 +11,11 @@ import Vinyl from 'vinyl'
 import rimraf from 'rimraf'
 import terser from 'gulp-terser'
 import { transform as babelTransform } from '@babel/core'
-import { exec, ExecOptions, execFile } from 'child_process'
+import { exec as exec_, ExecOptions, execFile } from 'child_process'
+import { promisify } from 'util'
+const exec = promisify(exec_)
 
-const root = path.join(__dirname, '../')
+export const root = path.join(__dirname, '../')
 
 export const zfbTestPath = path.join(root, 'mini-program-tests/zfb')
 export const wxTestPath = path.join(root, 'mini-program-tests/wx')
@@ -142,13 +144,13 @@ export function transformWrap(
   })
 }
 
-export function exec_(command: string, options: ExecOptions) {
-  return new Promise<string>((resolve, reject) => {
-    exec(command, options, (err, stdout, stderr) => {
-      err ? reject(err) : resolve(stdout)
-    })
-  })
-}
+// export function exec_(command: string, options: ExecOptions) {
+//   return new Promise<string>((resolve, reject) => {
+//     exec(command, options, (err, stdout, stderr) => {
+//       err ? reject(err) : resolve(stdout)
+//     })
+//   })
+// }
 
 export function removeDefault() {
   return transformWrap((file, cb) => {
@@ -230,13 +232,13 @@ export function buildNpm() {
 
 export function npmlink(pkgPath: string) {
   return Promise.all([
-    exec_(`pnpm link ${pkgPath}`, {
+    exec(`pnpm link ${pkgPath}`, {
       cwd: wxTestPath,
     }),
-    exec_(`pnpm link ${pkgPath}`, {
+    exec(`pnpm link ${pkgPath}`, {
       cwd: zfbTestPath,
     }),
-    exec_(`pnpm link ${pkgPath}`, {
+    exec(`pnpm link ${pkgPath}`, {
       cwd: byteTestPath,
     }),
   ])
