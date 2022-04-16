@@ -97,7 +97,7 @@ class FormDataPolyfill {
     ensureArgs(arguments, 1)
 
     name = String(name)
-    return this._data.filter((item) => item[0] !== name)
+    this._data = this._data.filter((item) => item[0] !== name)
   }
 
   get(name: string) {
