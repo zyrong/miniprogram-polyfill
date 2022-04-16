@@ -1,6 +1,6 @@
 {
   "name": "mini-program-formdata",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "mini program formdata polyfill",
   "jsnext:main": "dist/index.es.js",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "mini-program-blob": "workspace:^1.0.4",
-    "mini-program-file": "workspace:^1.0.2"
+    "mini-program-file": "workspace:^1.0.3"
   },
   "bugs": {
     "url": "https://github.com/zyrong/mini-program-polyfill/issues"

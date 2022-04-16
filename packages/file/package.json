@@ -1,6 +1,6 @@
 {
   "name": "mini-program-file",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "description": "mini program file polyfill",
   "jsnext:main": "dist/index.es.js",
