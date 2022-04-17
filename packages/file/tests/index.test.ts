@@ -1,3 +1,7 @@
+// 防止使用当前环境中的Blob和File，强制使用对应的Polyfill,
+globalThis.Blob = undefined as any
+globalThis.File = undefined as any
+
 import File from '../index'
 
 const lastModified = Date.now()

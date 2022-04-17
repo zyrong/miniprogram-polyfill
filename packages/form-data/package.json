@@ -27,7 +27,6 @@
   "scripts": {
     "build": "gulp -f ./gulpfile.ts build",
     "dev": "gulp -f ./gulpfile.ts dev",
-    "run-server": "ts-node ./tests/server.ts",
     "test": "jest",
     "release": "ts-node ../../builds/release.ts"
   },
@@ -36,8 +35,10 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "mini-program-blob": "workspace:^1.0.4",
     "mini-program-file": "workspace:^1.0.3"
+  },
+  "devDependencies": {
+    "mini-program-blob": "workspace:^1.0.4"
   },
   "bugs": {
     "url": "https://github.com/zyrong/mini-program-polyfill/issues"

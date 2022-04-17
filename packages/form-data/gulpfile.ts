@@ -1,6 +1,8 @@
 import gulp from 'gulp'
 import { TaskCallback } from 'undertaker'
 import path from 'path'
+import fs from 'fs/promises'
+import os from 'os'
 import packageJson from './package.json'
 import {
   delDist,
@@ -26,6 +28,8 @@ export function dev() {
         buildCjs(srcGlob, dest, { 'index.js': cjsFilename }),
         buildEsm(srcGlob, dest, { 'index.js': esmFilename }),
       ])
+      await removeDTS_RawFormdata()
+      await removeDTS_buffer()
       await npmlink(pkgRoot)
       await buildNpm()
       done()
@@ -35,18 +39,40 @@ export function dev() {
   })
 }
 
-export function build(done: TaskCallback) {
-  delDist(delPath).then(() => {
-    Promise.all([
+export async function build(done: TaskCallback) {
+  try {
+    await delDist(delPath)
+    await Promise.all([
       buildCjs(srcGlob, dest, { 'index.js': cjsFilename }, true),
       buildEsm(srcGlob, dest, { 'index.js': esmFilename }, true),
-    ]).then(
-      () => {
-        done()
-      },
-      (err) => {
-        console.log(err)
-      }
-    )
+    ])
+    await removeDTS_RawFormdata()
+    await removeDTS_buffer()
+    done()
+  } catch (error: any) {
+    done(error)
+  }
+}
+
+function removeDTS_RawFormdata() {
+  return new Promise((resolve, reject) => {
+    const path = './dist/index.d.ts'
+    fs.readFile(path).then((buffer) => {
+      let string = buffer
+        .toString()
+        .replace(/declare const _default((.|\r|\n)*)/, '')
+      string = string + os.EOL + 'export default FormDataPolyfill'
+      fs.writeFile(path, string).then(resolve)
+    })
+  })
+}
+
+function removeDTS_buffer() {
+  return new Promise((resolve, reject) => {
+    const path = './dist/index.d.ts'
+    fs.readFile(path).then((buffer) => {
+      const string = buffer.toString().replace(/\s.*?private _data;/, '')
+      fs.writeFile(path, string).then(resolve)
+    })
   })
 }

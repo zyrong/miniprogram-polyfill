@@ -1,3 +1,6 @@
+// 防止使用当前环境中的Blob，强制使用对应的Polyfill,
+globalThis.Blob = undefined as any
+
 import { TextEncoder } from 'util'
 import Blob from '../index'
 

@@ -358,4 +358,6 @@ if (stream) {
   BlobPolyfill.prototype.stream = stream
 }
 
-export default typeof Blob === 'undefined' ? BlobPolyfill : Blob
+export default typeof Blob === 'undefined'
+  ? BlobPolyfill
+  : (Blob as unknown as typeof BlobPolyfill)

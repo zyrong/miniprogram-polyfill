@@ -1,23 +1,9 @@
-import BlobPolyfill, {
-  BlobPolyfillPart,
-  BlobPolyfillPropertyBag,
-} from 'mini-program-blob'
-import FilePolyfill, { FilePolyfillPropertyBag } from 'mini-program-file'
+import type BlobPolyfill from 'mini-program-blob'
+import FilePolyfill from 'mini-program-file'
 
-const Blob_: {
-  new (
-    blobParts?: BlobPolyfillPart[],
-    options?: BlobPolyfillPropertyBag
-  ): BlobPolyfill
-} = typeof Blob === 'object' ? Blob : BlobPolyfill
+export type FormDataEntryValue = string | FilePolyfill
 
-const File_: {
-  new (
-    fileBits: BlobPolyfillPart[],
-    fileName: string,
-    options?: FilePolyfillPropertyBag
-  ): FilePolyfill
-} = typeof File === 'object' ? File : FilePolyfill
+const File = FilePolyfill
 
 const is = {
   blob(value: any): value is BlobPolyfill {
@@ -44,27 +30,18 @@ function normalizeArgs(
   name: string,
   value: string | BlobPolyfill,
   filename?: string
-): [string, FilePolyfill | string] {
+): [string, FormDataEntryValue] {
   const isBlob = is.blob(value)
   // 兼容其他Blob/File polyfill
   if (isBlob || is.file(value)) {
     filename = filename || (isBlob ? 'blob' : (value as FilePolyfill).name)
-    isBlob && (value = new File_([value], filename))
+    isBlob && (value = new File([value], filename))
   }
-  return [name, value as FilePolyfill | string]
+  return [name, value as FormDataEntryValue]
 }
-
-// normalize line feeds for textarea
-// https://html.spec.whatwg.org/multipage/form-elements.html#textarea-line-break-normalisation-transformation
-function normalizeLinefeeds(value: string) {
-  return value.replace(/\r?\n|\r/g, '\r\n')
-}
-
-const escape = (str: string) =>
-  str.replace(/\n/g, '%0A').replace(/\r/g, '%0D').replace(/"/g, '%22')
 
 class FormDataPolyfill {
-  private _data: [string, string | FilePolyfill][] = []
+  private _data: [string, FormDataEntryValue][] = []
   constructor() {}
 
   append(name: string, value: string | BlobPolyfill, fileName?: string) {
@@ -119,7 +96,7 @@ class FormDataPolyfill {
     return this._data.reduce((prev, curr) => {
       curr[0] === name && prev.push(curr[1])
       return prev
-    }, [] as Array<string | FilePolyfill>)
+    }, [] as Array<FormDataEntryValue>)
   }
 
   has(name: string) {
@@ -143,6 +120,20 @@ class FormDataPolyfill {
     return this.entries()
   }
 
+  forEach(
+    callbackfn: (
+      value: FormDataEntryValue,
+      key: string,
+      parent: FormDataPolyfill
+    ) => void,
+    thisArg?: any
+  ) {
+    ensureArgs(arguments, 1)
+    for (const [name, value] of this) {
+      callbackfn.call(thisArg, value, name, this)
+    }
+  }
+
   *keys() {
     for (const [name] of this) {
       yield name
@@ -155,33 +146,6 @@ class FormDataPolyfill {
     }
   }
 
-  _blob() {
-    const boundary = '----formdata-polyfill-' + Math.random(),
-      chunks = [],
-      p = `--${boundary}\r\nContent-Disposition: form-data; name="`
-    for (const [name, value] of this) {
-      typeof value == 'string'
-        ? chunks.push(
-            p +
-              escape(normalizeLinefeeds(name)) +
-              `"\r\n\r\n${normalizeLinefeeds(value)}\r\n`
-          )
-        : chunks.push(
-            p +
-              escape(normalizeLinefeeds(name)) +
-              `"; filename="${escape(value.name)}"\r\nContent-Type: ${
-                value.type || 'application/octet-stream'
-              }\r\n\r\n`,
-            value,
-            `\r\n`
-          )
-    }
-    chunks.push(`--${boundary}--`)
-    return new Blob_(chunks, {
-      type: 'multipart/form-data; boundary=' + boundary,
-    })
-  }
-
   toString() {
     return '[object FormData]'
   }
@@ -192,4 +156,6 @@ if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
   ;(FormDataPolyfill.prototype as any)[Symbol.toStringTag] = 'FormData'
 }
 
-export default FormDataPolyfill
+export default typeof FormData === 'undefined'
+  ? FormDataPolyfill
+  : (FormData as typeof FormDataPolyfill)

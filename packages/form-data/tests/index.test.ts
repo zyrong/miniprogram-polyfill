@@ -1,8 +1,13 @@
+// 防止使用当前环境中的Blob、File、FormData，强制使用对应的Polyfill,
+globalThis.FormData = undefined as any
+globalThis.Blob = undefined as any
+globalThis.File = undefined as any
+
 import FormData from '../index'
 import Blob from 'mini-program-blob'
 import File from 'mini-program-file'
 
-describe('iterator and _blob', () => {
+describe('iterator', () => {
   const fd = new FormData()
   const fdInitData: Array<[string, string | Blob]> = [
     ['string', 'string'],
@@ -73,19 +78,20 @@ describe('iterator and _blob', () => {
     done()
   })
 
-  it('_blob()', (done) => {
-    const blob = fd._blob()
-    const random = blob.type.match(/formdata-polyfill-(.*)/)![1]
-    const expected =
-      `------formdata-polyfill-${random}\r\nContent-Disposition: form-data; name="string"\r\n\r\nstring\r\n` +
-      `------formdata-polyfill-${random}\r\nContent-Disposition: form-data; name="blob"; filename="blob"\r\nContent-Type: application/octet-stream\r\n\r\nblob\r\n` +
-      `------formdata-polyfill-${random}\r\nContent-Disposition: form-data; name="file"; filename="filename"\r\nContent-Type: application/octet-stream\r\n\r\nfile\r\n` +
-      `------formdata-polyfill-${random}--`
-
-    blob.text().then((text) => {
-      expect(text).toBe(expected)
-      done()
+  it('foreach() order', (done) => {
+    let idx = 0
+    fd.forEach((value, name, parent) => {
+      const expected_value = expecteds[idx]
+      const expected_name = fdInitData[idx][0]
+      expect(name).toBe(expected_name)
+      if (typeof expected_value === 'function') {
+        expect(expected_value(value)).toBeTruthy()
+      } else {
+        expect(value).toBe(expected_value)
+      }
+      idx++
     })
+    done()
   })
 })
 

@@ -31,4 +31,6 @@ if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
   ;(FilePolyfill.prototype as any)[Symbol.toStringTag] = 'File'
 }
 
-export default typeof File === 'undefined' ? FilePolyfill : File
+export default typeof File === 'undefined'
+  ? FilePolyfill
+  : (File as unknown as typeof FilePolyfill)
