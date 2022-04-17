@@ -16,23 +16,14 @@
 ## usage
 ```js
 import FormData from 'mini-program-formdata'
-import Blob from 'mini-program-blob'
+import Blob from 'mini-program-blob' // 假设当前小程序不支持Blob，引入polyfill
 
 // 设置为全局对象
 // globalThis.FormData = FormData
 
-
 const fd = new FormData()
 fd.append('text', 'string')
-fd.append('blob', new Blob(new Uint8Array(['abc'])))
-
-const blob = fd._blob() // 浏览器中的FormData并没有提供该方法
-// TIP: 如果当前小程序环境不支持Blob，那么内部就会使用'mini-program-blob'进行polyfill
-console.log(blob.type)
-blob.arrayBuffer().then(buffer => {
-  console.log(buffer)
-})
-
+fd.append('blob', new Blob(['abc']))
 ```
 > TIP:   
 > 支付宝小程序IDE环境下globalThis为undefined，[解决方法](https://github.com/zyrong/mini-program-polyfill/issues/1)  
@@ -56,12 +47,13 @@ blob.arrayBuffer().then(buffer => {
 ```js
 // app.js
 import FormData from 'mini-program-formdata'
+import multipartFormDataEncode from 'multipart-formdata-encode'
 globalThis.FormData = FormData
 
 const rawRequest = wx.request
 function request(reqOpt) {
-  if (reqOpt.data instanceof FormData) {
-    const blob = reqOpt.data._blob()
+  if (Object.prototype.toString.call(reqOpt.data) === '[object FormData]') {
+    const blob = multipartFormDataEncode(reqOpt.data) // 将FormData编码为multipart/form-data
     if (!reqOpt.header) reqOpt.header = {}
     reqOpt.header['content-type'] = blob.type
     blob.arrayBuffer().then((buffer) => {
@@ -80,7 +72,7 @@ Object.defineProperty(wx, 'request', {
 
 
 // other.js
-import File from 'mini-program-file' // 由于小程序没有File，引入polyfill
+import File from 'mini-program-file' // 由于微信小程序没有File，引入polyfill
 
 const fd = new FormData()
 fd.append('string', 'string')

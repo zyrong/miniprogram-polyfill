@@ -11,7 +11,7 @@ import multipartFormDataEncode from 'multipart-formdata-encode'
 
 const fd = new FormData()
 fd.append('text', 'string')
-fd.append('blob', new Blob(new Uint8Array(['abc'])))
+fd.append('blob', new Blob(['abc']))
 
 const blob = multipartFormDataEncode(fd)
 
