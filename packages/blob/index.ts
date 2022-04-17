@@ -9,6 +9,12 @@ type TypedArray =
   | Float32Array
   | Float64Array
 
+export type BufferSource = ArrayBufferView | ArrayBuffer
+export type BlobPolyfillPart = BufferSource | BlobPolyfill | string
+export interface BlobPolyfillPropertyBag {
+  type?: string
+}
+
 function isDataView(obj: any): obj is DataView {
   return obj && Object.prototype.isPrototypeOf.call(DataView.prototype, obj)
 }
@@ -36,7 +42,7 @@ const viewClasses = [
 ]
 
 // 判断是否为TypedArray
-const isArrayBufferView = function (obj: any): obj is TypedArray {
+function isArrayBufferView(obj: any): obj is TypedArray {
   return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
 }
 
@@ -235,12 +241,6 @@ const textDecode =
     ? TextDecoder.prototype.decode.bind(new TextDecoder())
     : stringDecode
 
-export type BufferSource = ArrayBufferView | ArrayBuffer
-export type BlobPolyfillPart = BufferSource | BlobPolyfill | string
-export interface BlobPolyfillPropertyBag {
-  type?: string
-}
-
 function isSamePolyfill(val: any): val is BlobPolyfill {
   return val.arrayBuffer && val._buffer instanceof Uint8Array
 }
@@ -358,4 +358,4 @@ if (stream) {
   BlobPolyfill.prototype.stream = stream
 }
 
-export default BlobPolyfill
+export default typeof Blob === 'undefined' ? BlobPolyfill : Blob
