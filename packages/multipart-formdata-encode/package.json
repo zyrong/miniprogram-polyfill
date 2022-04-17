@@ -1,6 +1,6 @@
 {
   "name": "multipart-formdata-encode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "description": "mini program formdata multipart/form-data encode",
   "jsnext:main": "dist/index.es.js",
@@ -31,11 +31,11 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "mini-program-blob": "workspace:^1.0.4"
+    "mini-program-blob": "workspace:^1.0.5"
   },
   "devDependencies": {
-    "mini-program-file": "workspace:^1.0.3",
-    "mini-program-formdata": "workspace:^1.0.1"
+    "mini-program-file": "workspace:^1.0.4",
+    "mini-program-formdata": "workspace:^1.0.2"
   },
   "bugs": {
     "url": "https://github.com/zyrong/mini-program-polyfill/issues"
