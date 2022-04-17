@@ -1,10 +1,6 @@
 import fs from 'fs/promises'
 import express from 'express'
 import formidable from 'express-formidable'
-import { getIP } from '../../../builds'
-
-const IP = getIP()
-const PORT = 3333
 
 const app = express()
 app.use(formidable())
@@ -17,22 +13,34 @@ app.all('*', function (req, res, next) {
 })
 
 app.post('/post', async (req, res, next) => {
-  if (req.fields && req.files && req.files['file']) {
+  let flag = 0
+  if (req.fields) {
     if (req.fields['string'] === 'string') {
-      const file = req.files.file
-      if (!Array.isArray(file)) {
-        if ((file as any).name === 'filename') {
-          const buffer = await fs.readFile((file as any).path)
-          if (buffer.toString() === 'filecontent') {
-            res.send('success')
-            return
-          }
+      flag++
+    }
+  }
+  if (req.files && req.files['file'] && req.files['blob']) {
+    const file = req.files.file
+    if (!Array.isArray(file)) {
+      if ((file as any).name === 'filename') {
+        const buffer = await fs.readFile((file as any).path)
+        if (buffer.toString() === 'file') {
+          flag++
+        }
+      }
+    }
+
+    const blob = req.files.blob
+    if (!Array.isArray(blob)) {
+      if ((blob as any).name === 'blob') {
+        const buffer = await fs.readFile((blob as any).path)
+        if (buffer.toString() === 'blob') {
+          flag++
         }
       }
     }
   }
-
-  res.send('error')
+  res.send(flag >= 3 ? 'success' : 'error')
 })
 
-app.listen(3333)
+export default app

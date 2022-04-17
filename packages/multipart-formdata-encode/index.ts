@@ -16,9 +16,9 @@ export default function encode(formData: FormData) {
     throw new TypeError(`${formData} is not a FormData`)
   }
   const chunks: BlobPolyfillPart[] = []
-  const boundary = '----FormBoundary' + Math.random(),
+  const boundary = '----formboundary' + Math.random(),
     p = `--${boundary}\r\nContent-Disposition: form-data; name="`
-  formData.forEach((value, name) => {
+  formData.forEach(function (value, name) {
     typeof value == 'string'
       ? chunks.push(
           p +
