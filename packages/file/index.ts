@@ -1,3 +1,4 @@
+/* eslint-disable prefer-rest-params */
 import BlobPolyfill, {
   BlobPolyfillPart,
   BlobPolyfillPropertyBag,
@@ -5,6 +6,14 @@ import BlobPolyfill, {
 
 export interface FilePolyfillPropertyBag extends BlobPolyfillPropertyBag {
   lastModified?: number
+}
+
+function ensureArgs(args: IArguments, expected: number) {
+  if (args.length < expected) {
+    throw new TypeError(
+      `${expected} argument required, but only ${args.length} present.`
+    )
+  }
 }
 
 class FilePolyfill extends BlobPolyfill {
@@ -16,6 +25,7 @@ class FilePolyfill extends BlobPolyfill {
     fileName: string,
     options: FilePolyfillPropertyBag = {}
   ) {
+    ensureArgs(arguments, 2)
     super(fileBits, options)
     this.name = fileName.replace(/\//g, ':')
     this.lastModified = options.lastModified || Date.now()
@@ -27,8 +37,9 @@ class FilePolyfill extends BlobPolyfill {
 }
 
 if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-  // eslint-disable-next-line @typescript-eslint/no-extra-semi
-  ;(FilePolyfill.prototype as any)[Symbol.toStringTag] = 'File'
+  Object.defineProperty(FilePolyfill.prototype, Symbol.toStringTag, {
+    value: 'File',
+  })
 }
 
 export default typeof File === 'undefined'

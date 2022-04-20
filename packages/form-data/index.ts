@@ -1,3 +1,4 @@
+/* eslint-disable prefer-rest-params */
 import type BlobPolyfill from 'miniprogram-blob'
 import FilePolyfill from 'miniprogram-file'
 
@@ -17,7 +18,6 @@ const is = {
   },
 }
 
-/* eslint-disable prefer-rest-params */
 function ensureArgs(args: IArguments, expected: number) {
   if (args.length < expected) {
     throw new TypeError(
@@ -35,7 +35,7 @@ function normalizeArgs(
   // 兼容其他Blob/File polyfill
   if (isBlob || is.file(value)) {
     filename = filename || (isBlob ? 'blob' : (value as FilePolyfill).name)
-    isBlob && (value = new File([value], filename))
+    isBlob && (value = new File([value], filename as string))
   }
   return [name, value as FormDataEntryValue]
 }
@@ -152,8 +152,9 @@ class FormDataPolyfill {
 }
 
 if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-  // eslint-disable-next-line @typescript-eslint/no-extra-semi
-  ;(FormDataPolyfill.prototype as any)[Symbol.toStringTag] = 'FormData'
+  Object.defineProperty(FormDataPolyfill.prototype, Symbol.toStringTag, {
+    value: 'FormData',
+  })
 }
 
 export default typeof FormData === 'undefined'

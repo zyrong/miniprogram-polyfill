@@ -326,8 +326,9 @@ class BlobPolyfill {
 }
 
 if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-  // eslint-disable-next-line @typescript-eslint/no-extra-semi
-  ;(BlobPolyfill.prototype as any)[Symbol.toStringTag] = 'Blob'
+  Object.defineProperty(BlobPolyfill.prototype, Symbol.toStringTag, {
+    value: 'Blob',
+  })
 }
 
 let stream: (() => ReadableStream) | undefined
