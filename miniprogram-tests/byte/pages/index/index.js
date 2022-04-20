@@ -1,12 +1,11 @@
-// const Blob = require('miniprogram-blob')
-// const File = require('miniprogram-file')
-// const FormData = require('miniprogram-formdata')
+const Blob = require('miniprogram-blob')
+const File = require('miniprogram-file')
+const FormData = require('miniprogram-formdata')
 
 Page({
   data: {},
   onLoad: function () {
     const blob = new Blob(['blob'])
-    console.log(blob)
     blob.text().then((text) => {
       console.log(text)
     })
@@ -18,7 +17,8 @@ Page({
 
     const fd = new FormData()
     fd.append('string', 'string')
-    fd.append('file', new File(['filecontent'], 'filename'))
+    fd.append('file', new File(['file'], 'filename'))
+    fd.append('blob', new Blob(['blob']))
 
     const IP = '192.168.50.28'
     const PORT = '3333'

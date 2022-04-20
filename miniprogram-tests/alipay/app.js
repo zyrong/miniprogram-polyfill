@@ -1,4 +1,5 @@
 import FormData from 'miniprogram-formdata'
+import formdataEncode from 'formdata-encode'
 
 if (typeof globalThis !== 'object') {
   Object.defineProperty(Object.prototype, 'globalThis', {
@@ -13,7 +14,7 @@ globalThis.FormData = FormData
 const rawRequest = my.request
 function request(reqOpt) {
   if (reqOpt.data instanceof FormData) {
-    const blob = reqOpt.data._blob()
+    const blob = formdataEncode(reqOpt.data)
     if (!reqOpt.headers) reqOpt.headers = {}
     reqOpt.headers['content-type'] = blob.type
     blob.arrayBuffer().then((buffer) => {

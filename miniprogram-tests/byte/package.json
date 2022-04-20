@@ -6,7 +6,8 @@
   "dependencies": {
     "miniprogram-blob": "1.0.3",
     "miniprogram-file": "1.0.0",
-    "miniprogram-formdata": "1.0.0"
+    "miniprogram-formdata": "1.0.0",
+    "formdata-encode": "1.0.0"
   },
   "keywords": [],
   "author": "",

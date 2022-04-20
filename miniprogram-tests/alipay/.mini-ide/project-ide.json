@@ -1,3 +1,4 @@
 {
-  "enableLegacyRemoteDebug": false
+  "enableLegacyRemoteDebug": false,
+  "enableBackgroundBuild": false
 }

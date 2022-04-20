@@ -47,13 +47,13 @@ fd.append('blob', new Blob(['abc']))
 ```js
 // app.js
 import FormData from 'miniprogram-formdata'
-import multipartFormDataEncode from 'multipart-formdata-encode'
+import formDataEncode from 'formdata-encode'
 globalThis.FormData = FormData
 
 const rawRequest = wx.request
 function request(reqOpt) {
   if (Object.prototype.toString.call(reqOpt.data) === '[object FormData]') {
-    const blob = multipartFormDataEncode(reqOpt.data) // 将FormData编码为multipart/form-data
+    const blob = formDataEncode(reqOpt.data) // 将FormData编码为multipart/form-data
     if (!reqOpt.header) reqOpt.header = {}
     reqOpt.header['content-type'] = blob.type
     blob.arrayBuffer().then((buffer) => {

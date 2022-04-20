@@ -16,7 +16,8 @@ Page({
 
     const fd = new FormData()
     fd.append('string', 'string')
-    fd.append('file', new File(['filecontent'], 'filename'))
+    fd.append('file', new File(['file'], 'filename'))
+    fd.append('blob', new Blob(['blob']))
 
     const IP = '192.168.50.28'
     const PORT = '3333'

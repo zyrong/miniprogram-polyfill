@@ -1,6 +1,6 @@
 {
-  "name": "multipart-formdata-encode",
-  "version": "1.0.3",
+  "name": "formdata-encode",
+  "version": "0.0.1",
   "private": false,
   "description": "mini program formdata multipart/form-data encode",
   "jsnext:main": "dist/index.es.js",
@@ -42,8 +42,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zyrong/miniprogram-polyfill/blob/master/packages/multipart-formdata-encode"
+    "url": "https://github.com/zyrong/miniprogram-polyfill/blob/master/packages/formdata-encode"
   },
-  "homepage": "https://github.com/zyrong/miniprogram-polyfill/blob/master/packages/multipart-formdata-encode/README.md",
+  "homepage": "https://github.com/zyrong/miniprogram-polyfill/blob/master/packages/formdata-encode/README.md",
   "license": "MIT"
 }
