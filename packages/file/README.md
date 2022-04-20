@@ -1,4 +1,4 @@
-# mini-program-file ![](https://badgen.net/npm/v/mini-program-file)  ![](https://badgen.net/npm/types/mini-program-file)  ![](https://badgen.net/npm/dt/mini-program-file) ![](https://badgen.net/badge/language/typescript/blue)
+# miniprogram-file ![](https://badgen.net/npm/v/miniprogram-file)  ![](https://badgen.net/npm/types/miniprogram-file)  ![](https://badgen.net/npm/dt/miniprogram-file) ![](https://badgen.net/badge/language/typescript/blue)
 
 小程序的File polyfill。
 
@@ -14,7 +14,7 @@
 
 ## Example
 ```js
-import File from 'mini-program-file'
+import File from 'miniprogram-file'
 
 // 设置为全局对象
 // globalThis.File = File
@@ -24,7 +24,7 @@ const file = new File(["foo"], "foo.txt", {
 });
 ```
 > TIP:   
-> 支付宝小程序IDE环境下globalThis为undefined，[解决方法](https://github.com/zyrong/mini-program-polyfill/issues/1)  
+> 支付宝小程序IDE环境下globalThis为undefined，[解决方法](https://github.com/zyrong/miniprogram-polyfill/issues/1)  
 >字节小程序所有环境的globalThis都为undefined,暂时无法设置全局变量。  
 
 <br/>

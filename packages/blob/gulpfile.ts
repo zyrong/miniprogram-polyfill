@@ -18,7 +18,7 @@ const dest = path.join(pkgRoot, path.dirname(packageJson.main))
 const cjsFilename = path.basename(packageJson.main)
 const esmFilename = path.basename(packageJson.module)
 
-const delPath = path.join('./dist')
+const delPath = path.join(pkgRoot, 'dist')
 
 export function dev() {
   return gulp.watch(srcGlob, { ignoreInitial: false }, async (done) => {
@@ -55,23 +55,23 @@ export async function build(done: TaskCallback) {
 
 function removeDTS_buffer() {
   return new Promise((resolve, reject) => {
-    const path = './dist/index.d.ts'
-    fs.readFile(path).then((buffer) => {
+    const d_ts_path = path.join(pkgRoot, './dist/index.d.ts')
+    fs.readFile(d_ts_path).then((buffer) => {
       const string = buffer.toString().replace(/\s.*?private _buffer;/, '')
-      fs.writeFile(path, string).then(resolve)
+      fs.writeFile(d_ts_path, string).then(resolve)
     })
   })
 }
 
 function removeDTS_RawBlob() {
   return new Promise((resolve, reject) => {
-    const path = './dist/index.d.ts'
-    fs.readFile(path).then((buffer) => {
+    const d_ts_path = path.join(pkgRoot, './dist/index.d.ts')
+    fs.readFile(d_ts_path).then((buffer) => {
       let string = buffer
         .toString()
         .replace(/declare const _default((.|\r|\n)*)/, '')
       string = string + os.EOL + 'export default BlobPolyfill'
-      fs.writeFile(path, string).then(resolve)
+      fs.writeFile(d_ts_path, string).then(resolve)
     })
   })
 }

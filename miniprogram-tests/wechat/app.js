@@ -1,11 +1,12 @@
-const FormData = require('mini-program-formdata')
-
+const FormData = require('miniprogram-formdata')
+const multipartFormDataEncode = require('multipart-formdata-encode')
 globalThis.FormData = FormData
 
 const rawRequest = wx.request
+
 function request(reqOpt) {
-  if (reqOpt.data instanceof FormData) {
-    const blob = reqOpt.data._blob()
+  if (Object.prototype.toString.call(reqOpt.data) === '[object FormData]') {
+    const blob = multipartFormDataEncode(reqOpt.data)
     if (!reqOpt.header) reqOpt.header = {}
     reqOpt.header['content-type'] = blob.type
     blob.arrayBuffer().then((buffer) => {
@@ -20,6 +21,7 @@ Object.defineProperty(wx, 'request', {
   get() {
     return request
   },
+  enumerable: true,
 })
 
 App({

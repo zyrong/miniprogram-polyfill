@@ -1,5 +1,5 @@
-import Blob from 'mini-program-blob'
-import File from 'mini-program-file'
+import Blob from 'miniprogram-blob'
+import File from 'miniprogram-file'
 
 Page({
   onLoad(query) {

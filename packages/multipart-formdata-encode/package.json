@@ -31,19 +31,19 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "mini-program-blob": "workspace:^1.0.5"
+    "miniprogram-blob": "workspace:^1.0.0"
   },
   "devDependencies": {
-    "mini-program-file": "workspace:^1.0.4",
-    "mini-program-formdata": "workspace:^1.0.2"
+    "miniprogram-file": "workspace:^1.0.0",
+    "miniprogram-formdata": "workspace:^1.0.0"
   },
   "bugs": {
-    "url": "https://github.com/zyrong/mini-program-polyfill/issues"
+    "url": "https://github.com/zyrong/miniprogram-polyfill/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zyrong/mini-program-polyfill/blob/master/packages/multipart-formdata-encode"
+    "url": "https://github.com/zyrong/miniprogram-polyfill/blob/master/packages/multipart-formdata-encode"
   },
-  "homepage": "https://github.com/zyrong/mini-program-polyfill/blob/master/packages/multipart-formdata-encode/README.md",
+  "homepage": "https://github.com/zyrong/miniprogram-polyfill/blob/master/packages/multipart-formdata-encode/README.md",
   "license": "MIT"
 }

@@ -1,7 +1,7 @@
 import os from 'os'
 import gulp from 'gulp'
 import ts from 'gulp-typescript'
-import tma from 'tt-ide-cli'
+import { buildNpm as ttIdebuildNpm } from 'tt-ide-cli'
 import minidev from 'minidev'
 import { TaskCallback } from 'undertaker'
 import path from 'path'
@@ -17,11 +17,11 @@ const exec = promisify(exec_)
 
 export const root = path.join(__dirname, '../')
 
-export const zfbTestPath = path.join(root, 'mini-program-tests/zfb')
-export const wxTestPath = path.join(root, 'mini-program-tests/wx')
+export const zfbTestPath = path.join(root, 'miniprogram-tests/alipay')
+export const wxTestPath = path.join(root, 'miniprogram-tests/wechat')
 export const wxCliPath =
   '/Applications/wechatwebdevtools.app/Contents/MacOS/cli'
-export const byteTestPath = path.join(root, 'mini-program-tests/byte')
+export const byteTestPath = path.join(root, 'miniprogram-tests/byte')
 
 type FilenameMap = { [rawFilename: string]: string }
 export function buildCjs(
@@ -38,7 +38,7 @@ export function buildCjs(
       .pipe(gulp_if(compress, terser_()))
       .pipe(rename(filenameMap))
       .pipe(gulp.dest(dest))
-      .on('finish', () => {
+      .once('end', () => {
         resolve()
       })
   })
@@ -57,7 +57,7 @@ export function buildEsm(
       .pipe(gulp_if(compress, terser_()))
       .pipe(rename(filenameMap))
       .pipe(gulp.dest(dest))
-      .on('finish', () => {
+      .once('end', () => {
         resolve()
       })
   })
@@ -181,6 +181,7 @@ export function getIP() {
       }
     }
   }
+  return '127.0.0.1'
 }
 
 export function wx_buildNpm() {
@@ -199,6 +200,7 @@ export function wx_buildNpm() {
 }
 
 export function zfb_buildNpm() {
+  // https://opendocs.alipay.com/mini/02q17h
   return minidev.build({
     project: zfbTestPath,
   })
@@ -206,27 +208,18 @@ export function zfb_buildNpm() {
 
 export function byte_buildNpm() {
   // https://microapp.bytedance.com/docs/zh-CN/mini-app/develop/developer-instrument/development-assistance/ide-order-instrument
-  // return tma.buildNpm({
-  //   project: {
-  //     path: byteTestPath,
-  //   },
-  // })
-  // return new Promise<void>((resolve, reject) => {
-  //   execFile(
-  //     `${root}`,
-  //     ['pnpm ', 'exec', 'tma', 'build-npm', '--project-path', byteTestPath],
-  //     (err, stdout, stderr) => {
-  //       err ? reject(err) : resolve()
-  //     }
-  //   )
-  // })
+  return ttIdebuildNpm({
+    project: {
+      path: byteTestPath,
+    },
+  })
 }
 
 export function buildNpm() {
   return Promise.all([
     wx_buildNpm(),
-    zfb_buildNpm(),
-    // , byte_buildNpm()
+    // zfb_buildNpm(),
+    byte_buildNpm(),
   ])
 }
 

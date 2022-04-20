@@ -258,7 +258,7 @@ class BlobPolyfill {
     for (let i = 0, len = blobParts.length; i < len; i++) {
       const chunk = blobParts[i]
       // 不使用instanceof BlobPolyfill判断的原因:
-      // 当使用mini-program-formdata，同时又使用mini-program-blob/file的版本和mini-program-formdata内置的不相同时，
+      // 当使用miniprogram-formdata，同时又使用miniprogram-blob/file的版本和miniprogram-formdata内置的不相同时，
       // 此时由于是两个不同的构造函数，所以instanceof判断会出现问题。
       if (isSamePolyfill(chunk)) {
         chunks[i] = chunk._buffer

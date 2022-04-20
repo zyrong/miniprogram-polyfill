@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "mini-program-blob": "1.0.2",
-    "mini-program-file": "1.0.1",
-    "mini-program-formdata": "1.0.0"
-  }
-}

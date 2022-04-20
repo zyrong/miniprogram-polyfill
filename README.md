@@ -1,6 +1,6 @@
 # 小程序 polyfill
 
 ## packages
-- [mini-program-blob](https://github.com/zyrong/mini-program-polyfill/tree/master/packages/blob)
-- [mini-program-file](https://github.com/zyrong/mini-program-polyfill/tree/master/packages/file)
-- [mini-program-formdata](https://github.com/zyrong/mini-program-polyfill/tree/master/packages/form-data)
+- [miniprogram-blob](https://github.com/zyrong/miniprogram-polyfill/tree/master/packages/blob)
+- [miniprogram-file](https://github.com/zyrong/miniprogram-polyfill/tree/master/packages/file)
+- [miniprogram-formdata](https://github.com/zyrong/miniprogram-polyfill/tree/master/packages/form-data)

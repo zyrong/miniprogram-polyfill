@@ -1,5 +1,5 @@
-const Blob = require('mini-program-blob')
-const File = require('mini-program-file')
+const Blob = require('miniprogram-blob')
+const File = require('miniprogram-file')
 
 Page({
   data: {},

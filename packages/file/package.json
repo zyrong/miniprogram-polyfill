@@ -1,6 +1,6 @@
 {
-  "name": "mini-program-file",
-  "version": "1.0.4",
+  "name": "miniprogram-file",
+  "version": "1.0.0",
   "private": false,
   "description": "mini program file polyfill",
   "jsnext:main": "dist/index.es.js",
@@ -14,7 +14,7 @@
     "index.d.ts"
   ],
   "keywords": [
-    "mini-program",
+    "miniprogram",
     "wx",
     "winxin",
     "支付宝",
@@ -35,16 +35,16 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "mini-program-blob": "workspace:^1.0.5",
+    "miniprogram-blob": "workspace:^1.0.0",
     "tslib": "^2.3.1"
   },
   "bugs": {
-    "url": "https://github.com/zyrong/mini-program-polyfill/issues"
+    "url": "https://github.com/zyrong/miniprogram-polyfill/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zyrong/mini-program-polyfill/tree/master/packages/file"
+    "url": "https://github.com/zyrong/miniprogram-polyfill/tree/master/packages/file"
   },
-  "homepage": "https://github.com/zyrong/mini-program-polyfill/blob/master/packages/file/README.md",
+  "homepage": "https://github.com/zyrong/miniprogram-polyfill/blob/master/packages/file/README.md",
   "license": "MIT"
 }

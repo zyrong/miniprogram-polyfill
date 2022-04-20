@@ -1,4 +1,0 @@
-{
-  "enableAppxNg": true,
-  "node_modules_es6_whitelist": ["mini-program-formdata"]
-}

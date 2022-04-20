@@ -1,6 +1,6 @@
 {
-  "name": "mini-program-formdata",
-  "version": "1.0.2",
+  "name": "miniprogram-formdata",
+  "version": "1.0.0",
   "private": false,
   "description": "mini program formdata polyfill",
   "jsnext:main": "dist/index.es.js",
@@ -14,7 +14,7 @@
     "index.d.ts"
   ],
   "keywords": [
-    "mini-program",
+    "miniprogram",
     "wx",
     "winxin",
     "支付宝",
@@ -35,18 +35,18 @@
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "mini-program-file": "workspace:^1.0.4"
+    "miniprogram-file": "workspace:^1.0.0"
   },
   "devDependencies": {
-    "mini-program-blob": "workspace:^1.0.5"
+    "miniprogram-blob": "workspace:^1.0.0"
   },
   "bugs": {
-    "url": "https://github.com/zyrong/mini-program-polyfill/issues"
+    "url": "https://github.com/zyrong/miniprogram-polyfill/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zyrong/mini-program-polyfill/blob/master/packages/form-data"
+    "url": "https://github.com/zyrong/miniprogram-polyfill/blob/master/packages/form-data"
   },
-  "homepage": "https://github.com/zyrong/mini-program-polyfill/blob/master/packages/form-data/README.md",
+  "homepage": "https://github.com/zyrong/miniprogram-polyfill/blob/master/packages/form-data/README.md",
   "license": "MIT"
 }

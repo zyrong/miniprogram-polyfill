@@ -1,4 +1,4 @@
-const FormData = require('mini-program-formdata')
+const FormData = require('miniprogram-formdata')
 
 // if(typeof globalThis !== 'object'){
 //   Object.defineProperty(Object.prototype, 'globalThis_', {

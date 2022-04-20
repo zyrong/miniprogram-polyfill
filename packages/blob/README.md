@@ -1,4 +1,4 @@
-# mini-program-blob  ![](https://badgen.net/npm/v/mini-program-blob)  ![](https://badgen.net/npm/types/mini-program-blob) ![](https://badgen.net/npm/dt/mini-program-blob) ![](https://badgen.net/badge/language/typescript/blue)
+# miniprogram-blob  ![](https://badgen.net/npm/v/miniprogram-blob)  ![](https://badgen.net/npm/types/miniprogram-blob) ![](https://badgen.net/npm/dt/miniprogram-blob) ![](https://badgen.net/badge/language/typescript/blue)
 
 
 小程序的Blob polyfill。  
@@ -22,7 +22,7 @@
 
 ## Example
 ```js
-import Blob from 'mini-program-blob'
+import Blob from 'miniprogram-blob'
 
 // 设置为全局对象
 // globalThis.File = File
@@ -33,7 +33,7 @@ blob.arrayBuffer().then(buffer => {
 })
 ```
 > TIP:   
-> 支付宝小程序IDE环境下globalThis为undefined，[解决方法](https://github.com/zyrong/mini-program-polyfill/issues/1)  
+> 支付宝小程序IDE环境下globalThis为undefined，[解决方法](https://github.com/zyrong/miniprogram-polyfill/issues/1)  
 >字节小程序所有环境的globalThis都为undefined,暂时无法设置全局变量。  
 
 <br/>

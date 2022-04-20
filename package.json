@@ -1,8 +1,8 @@
 {
-  "name": "mini-program-polyfill",
-  "version": "1.0.1",
+  "name": "miniprogram-polyfill",
+  "version": "1.0.0",
   "private": false,
-  "description": "小程序 mini-program polyfill",
+  "description": "小程序 miniprogram polyfill",
   "main": "index.js",
   "files": [
     "README.md"
@@ -11,6 +11,7 @@
     "eslint:fix": "eslint --config ./.eslintrc.js --fix --ext .js,.ts ./",
     "prettier": "prettier --config ./.prettierrc.js --write **/*.{js,ts}",
     "test": "jest",
+    "run-mp-test-lib": "ts-node ./miniprogram-tests/test-lib.ts",
     "publish": "pnpm publish"
   },
   "lint-staged": {
@@ -44,6 +45,7 @@
     "@types/vinyl": "^2.0.6",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
+    "axios": "^0.26.1",
     "babel-plugin-add-module-exports": "^1.0.4",
     "chalk": "^4.1.2",
     "cross-env": "^7.0.3",
@@ -63,6 +65,7 @@
     "minidev": "^1.3.1-rc.1",
     "prettier": "^2.5.1",
     "rimraf": "^3.0.2",
+    "terser-webpack-plugin": "^5.3.1",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
     "tslib": "^2.3.1",
@@ -70,10 +73,11 @@
     "typescript": "^4.5.0"
   },
   "keywords": [
-    "mini-program",
+    "miniprogram",
     "wx",
     "支付宝",
     "微信",
+    "字节",
     "小程序",
     "blob",
     "file",
@@ -85,12 +89,12 @@
     "registry": "https://registry.npmjs.org/"
   },
   "bugs": {
-    "url": "https://github.com/zyrong/mini-program-polyfill/issues"
+    "url": "https://github.com/zyrong/miniprogram-polyfill/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/zyrong/mini-program-polyfill"
+    "url": "https://github.com/zyrong/miniprogram-polyfill"
   },
-  "homepage": "https://github.com/zyrong/mini-program-polyfill/blob/master/README.md",
+  "homepage": "https://github.com/zyrong/miniprogram-polyfill/blob/master/README.md",
   "license": "MIT"
 }

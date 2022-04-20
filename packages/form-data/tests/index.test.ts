@@ -4,8 +4,8 @@ globalThis.Blob = undefined as any
 globalThis.File = undefined as any
 
 import FormData from '../index'
-import Blob from 'mini-program-blob'
-import File from 'mini-program-file'
+import Blob from 'miniprogram-blob'
+import File from 'miniprogram-file'
 
 describe('iterator', () => {
   const fd = new FormData()

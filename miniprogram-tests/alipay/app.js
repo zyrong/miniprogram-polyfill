@@ -1,4 +1,4 @@
-import FormData from 'mini-program-formdata'
+import FormData from 'miniprogram-formdata'
 
 if (typeof globalThis !== 'object') {
   Object.defineProperty(Object.prototype, 'globalThis', {

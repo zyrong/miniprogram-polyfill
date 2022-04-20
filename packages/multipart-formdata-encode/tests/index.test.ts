@@ -4,9 +4,9 @@ globalThis.Blob = undefined as any
 globalThis.File = undefined as any
 
 import multipartFormDataEncode from '../index'
-import FormData from 'mini-program-formdata'
-import Blob from 'mini-program-blob'
-import File from 'mini-program-file'
+import FormData from 'miniprogram-formdata'
+import Blob from 'miniprogram-blob'
+import File from 'miniprogram-file'
 import axios from 'axios'
 import app from './server'
 import HTTP from 'http'

@@ -5,9 +5,10 @@
   "scripts": {
   },
   "dependencies": {
-    "mini-program-blob": "1.0.0",
-    "mini-program-file": "1.0.0",
-    "mini-program-formdata": "1.0.0",
+    "miniprogram-blob": "1.0.0",
+    "miniprogram-file": "1.0.0",
+    "miniprogram-formdata": "1.0.0",
+    "multipart-formdata-encode": "1.0.0",
     "tslib":"^2.3.1"
   },
   "keywords": [],

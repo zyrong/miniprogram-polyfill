@@ -1,5 +1,5 @@
-import Blob, { BlobPolyfillPart } from 'mini-program-blob'
-import type FormData from 'mini-program-formdata'
+import Blob, { BlobPolyfillPart } from 'miniprogram-blob'
+import type FormData from 'miniprogram-formdata'
 
 function escape(str: string) {
   return str.replace(/\n/g, '%0A').replace(/\r/g, '%0D').replace(/"/g, '%22')

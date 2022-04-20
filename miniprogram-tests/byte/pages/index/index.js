@@ -1,11 +1,12 @@
-const Blob = require('mini-program-blob')
-const File = require('mini-program-file')
-const FormData = require('mini-program-formdata')
+// const Blob = require('miniprogram-blob')
+// const File = require('miniprogram-file')
+// const FormData = require('miniprogram-formdata')
 
 Page({
   data: {},
   onLoad: function () {
     const blob = new Blob(['blob'])
+    console.log(blob)
     blob.text().then((text) => {
       console.log(text)
     })

@@ -1,4 +1,4 @@
-# mini-program-formdata ![](https://badgen.net/npm/v/mini-program-formdata)  ![](https://badgen.net/npm/types/mini-program-formdata) ![](https://badgen.net/npm/dt/mini-program-formdata) ![](https://badgen.net/badge/language/typescript/blue)
+# miniprogram-formdata ![](https://badgen.net/npm/v/miniprogram-formdata)  ![](https://badgen.net/npm/types/miniprogram-formdata) ![](https://badgen.net/npm/dt/miniprogram-formdata) ![](https://badgen.net/badge/language/typescript/blue)
 
 小程序form-data polyfill
 > 此库参考[formdata-polyfill](https://github.com/jimmywarting/FormData)修改为小程序版本  
@@ -15,8 +15,8 @@
 
 ## usage
 ```js
-import FormData from 'mini-program-formdata'
-import Blob from 'mini-program-blob' // 假设当前小程序不支持Blob，引入polyfill
+import FormData from 'miniprogram-formdata'
+import Blob from 'miniprogram-blob' // 假设当前小程序不支持Blob，引入polyfill
 
 // 设置为全局对象
 // globalThis.FormData = FormData
@@ -26,7 +26,7 @@ fd.append('text', 'string')
 fd.append('blob', new Blob(['abc']))
 ```
 > TIP:   
-> 支付宝小程序IDE环境下globalThis为undefined，[解决方法](https://github.com/zyrong/mini-program-polyfill/issues/1)  
+> 支付宝小程序IDE环境下globalThis为undefined，[解决方法](https://github.com/zyrong/miniprogram-polyfill/issues/1)  
 >字节小程序所有环境的globalThis都为undefined,暂时无法设置全局变量。  
 
 <br/>
@@ -46,7 +46,7 @@ fd.append('blob', new Blob(['abc']))
 
 ```js
 // app.js
-import FormData from 'mini-program-formdata'
+import FormData from 'miniprogram-formdata'
 import multipartFormDataEncode from 'multipart-formdata-encode'
 globalThis.FormData = FormData
 
@@ -72,7 +72,7 @@ Object.defineProperty(wx, 'request', {
 
 
 // other.js
-import File from 'mini-program-file' // 由于微信小程序没有File，引入polyfill
+import File from 'miniprogram-file' // 由于微信小程序没有File，引入polyfill
 
 const fd = new FormData()
 fd.append('string', 'string')

@@ -1,7 +1,7 @@
 import BlobPolyfill, {
   BlobPolyfillPart,
   BlobPolyfillPropertyBag,
-} from 'mini-program-blob'
+} from 'miniprogram-blob'
 
 export interface FilePolyfillPropertyBag extends BlobPolyfillPropertyBag {
   lastModified?: number

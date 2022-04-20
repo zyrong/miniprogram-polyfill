@@ -16,7 +16,7 @@ const dest = path.join(pkgRoot, path.dirname(packageJson.main))
 const cjsFilename = path.basename(packageJson.main)
 const esmFilename = path.basename(packageJson.module)
 
-const delPath = path.join('./dist')
+const delPath = path.join(pkgRoot, 'dist')
 
 export function dev() {
   return gulp.watch(srcGlob, { ignoreInitial: false }, async (done) => {

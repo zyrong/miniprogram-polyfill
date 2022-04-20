@@ -1,4 +1,4 @@
 node_modules
 dist
-mini-program-tests
 coverage
+miniprogram-tests

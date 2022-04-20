@@ -1,5 +1,5 @@
-import type BlobPolyfill from 'mini-program-blob'
-import FilePolyfill from 'mini-program-file'
+import type BlobPolyfill from 'miniprogram-blob'
+import FilePolyfill from 'miniprogram-file'
 
 export type FormDataEntryValue = string | FilePolyfill
 
