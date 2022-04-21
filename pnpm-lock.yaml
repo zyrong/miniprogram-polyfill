@@ -27,6 +27,7 @@ importers:
       eslint-plugin-prettier: ^4.0.0
       express: ^4.17.3
       express-formidable: ^1.2.0
+      formdata-encode: workspace:^0.0.1
       gulp: ^4.0.2
       gulp-terser: ^2.1.0
       gulp-typescript: ^6.0.0-alpha.1
@@ -35,6 +36,9 @@ importers:
       jest: ^27.5.1
       lint-staged: ^12.3.7
       minidev: ^1.3.1-rc.1
+      miniprogram-blob: workspace:^1.0.0
+      miniprogram-file: workspace:^1.0.0
+      miniprogram-formdata: workspace:^1.0.0
       prettier: ^2.5.1
       rimraf: ^3.0.2
       terser-webpack-plugin: ^5.3.1
@@ -43,6 +47,11 @@ importers:
       tslib: ^2.3.1
       tt-ide-cli: ^0.1.9
       typescript: ^4.5.0
+    dependencies:
+      formdata-encode: link:packages/formdata-encode
+      miniprogram-blob: link:packages/blob
+      miniprogram-file: link:packages/file
+      miniprogram-formdata: link:packages/form-data
     devDependencies:
       '@babel/core': registry.npmmirror.com/@babel/core/7.17.9
       '@commitlint/cli': registry.npmmirror.com/@commitlint/cli/16.2.3

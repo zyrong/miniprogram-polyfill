@@ -1,35 +1,44 @@
 {
   "name": "miniprogram-polyfill",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "private": false,
   "description": "小程序 miniprogram polyfill",
-  "main": "index.js",
+  "jsnext:main": "dist/index.es.js",
+  "module": "dist/index.es.js",
+  "main": "dist/index.js",
   "files": [
+    "dist",
     "README.md"
   ],
+  "keywords": [
+    "miniprogram",
+    "wx",
+    "支付宝",
+    "微信",
+    "字节",
+    "小程序",
+    "blob",
+    "file",
+    "form-data",
+    "polyfill"
+  ],
+  "author": "zyrong",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
   "scripts": {
     "eslint:fix": "eslint --config ./.eslintrc.js --fix --ext .js,.ts ./",
     "prettier": "prettier --config ./.prettierrc.js --write **/*.{js,ts}",
     "test": "jest",
+    "build": "gulp -f ./gulpfile.ts build",
     "run-mp-test-lib": "ts-node ./miniprogram-tests/test-lib.ts",
-    "publish": "pnpm publish"
+    "publish": "pnpm publish --no-git-checks"
   },
-  "lint-staged": {
-    "*.{js,ts}": [
-      "npm run prettier",
-      "npm run eslint:fix"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -x @commitlint/config-conventional -e"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+  "dependencies": {
+    "formdata-encode": "workspace:^0.0.1",
+    "miniprogram-blob": "workspace:^1.0.0",
+    "miniprogram-file": "workspace:^1.0.0",
+    "miniprogram-formdata": "workspace:^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
@@ -72,21 +81,22 @@
     "tt-ide-cli": "^0.1.9",
     "typescript": "^4.5.0"
   },
-  "keywords": [
-    "miniprogram",
-    "wx",
-    "支付宝",
-    "微信",
-    "字节",
-    "小程序",
-    "blob",
-    "file",
-    "form-data",
-    "polyfill"
-  ],
-  "author": "zyrong",
-  "publishConfig": {
-    "registry": "https://registry.npmjs.org/"
+  "lint-staged": {
+    "*.{js,ts}": [
+      "npm run prettier",
+      "npm run eslint:fix"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -x @commitlint/config-conventional -e"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   },
   "bugs": {
     "url": "https://github.com/zyrong/miniprogram-polyfill/issues"
