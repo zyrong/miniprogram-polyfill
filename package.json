@@ -1,6 +1,6 @@
 {
   "name": "miniprogram-polyfill",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": false,
   "description": "小程序 miniprogram polyfill",
   "jsnext:main": "dist/index.es.js",
@@ -29,10 +29,10 @@
   "scripts": {
     "eslint:fix": "eslint --config ./.eslintrc.js --fix --ext .js,.ts ./",
     "prettier": "prettier --config ./.prettierrc.js --write **/*.{js,ts}",
-    "test": "jest",
+    "test": "echo 'skip test'",
     "build": "gulp -f ./gulpfile.ts build",
     "run-mp-test-lib": "ts-node ./miniprogram-tests/test-lib.ts",
-    "publish": "pnpm publish --no-git-checks"
+    "release": "ts-node ./builds/release.ts"
   },
   "dependencies": {
     "formdata-encode": "workspace:^1.0.0",
