@@ -2,6 +2,7 @@ import Blob from 'miniprogram-blob'
 import File from 'miniprogram-file'
 import TextEncoder from 'miniprogram-text-encoder'
 import TextDecoder from 'miniprogram-text-decoder'
+import config from '../../common/config'
 
 Page({
   onLoad(query) {
@@ -26,12 +27,9 @@ Page({
     fd.append('file', new File(['file'], 'filename'))
     fd.append('blob', new Blob(['blob']))
 
-    const IP = '192.168.50.28'
-    const PORT = '3333'
-
     // IDE环境data为arraybuffer会提示无效参数，目前只能真机进行测试。
     my.request({
-      url: `http://${IP}:${PORT}/post`,
+      url: `${config.origin}/post`,
       method: 'POST',
       data: fd,
       dataType: 'text',

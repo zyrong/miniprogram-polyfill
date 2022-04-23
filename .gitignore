@@ -5,3 +5,4 @@ todo
 miniprogram_npm
 .pnpm-debug.log
 coverage
+miniprogram-tests/*/common

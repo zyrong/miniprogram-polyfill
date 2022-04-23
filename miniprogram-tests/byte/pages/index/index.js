@@ -3,6 +3,7 @@ const File = require('miniprogram-file')
 const FormData = require('miniprogram-formdata')
 const TextEncoder = require('miniprogram-text-encoder')
 const TextDecoder = require('miniprogram-text-decoder')
+const config = require('../../common/config')
 
 Page({
   data: {},
@@ -27,11 +28,8 @@ Page({
     fd.append('file', new File(['file'], 'filename'))
     fd.append('blob', new Blob(['blob']))
 
-    const IP = '192.168.50.28'
-    const PORT = '3333'
-
     tt.request({
-      url: `http://${IP}:${PORT}/post`,
+      url: `${config.origin}/post`,
       method: 'POST',
       data: fd,
       success(res) {
