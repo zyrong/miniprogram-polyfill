@@ -12,7 +12,8 @@ type TypedArray =
 export type BufferSource = ArrayBufferView | ArrayBuffer
 export type BlobPolyfillPart = BufferSource | BlobPolyfill | string
 export interface BlobPolyfillPropertyBag {
-  type?: string
+  type: string
+  endings: 'transparent'
 }
 
 function isDataView(obj: any): obj is DataView {
@@ -252,8 +253,14 @@ class BlobPolyfill {
 
   constructor(
     blobParts: BlobPolyfillPart[] = [],
-    options: BlobPolyfillPropertyBag = {}
+    options: BlobPolyfillPropertyBag = { type: '', endings: 'transparent' }
   ) {
+    if (options.endings !== 'transparent') {
+      throw new TypeError(
+        `Failed to construct 'Blob': Failed to read the 'endings' property from 'BlobPropertyBag': The provided value '${options.endings}' is not a valid enum value of type EndingType.`
+      )
+    }
+
     const chunks: Array<number[] | Uint8Array> = new Array(blobParts.length)
     for (let i = 0, len = blobParts.length; i < len; i++) {
       const chunk = blobParts[i]
@@ -279,7 +286,7 @@ class BlobPolyfill {
     this._buffer = concatTypedarrays(chunks)
     this.size = this._buffer.length
 
-    this.type = options.type || ''
+    this.type = options.type
     if (/[^\u0020-\u007E]/.test(this.type)) {
       this.type = ''
     } else {

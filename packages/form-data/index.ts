@@ -42,7 +42,13 @@ function normalizeArgs(
 
 class FormDataPolyfill {
   private _data: [string, FormDataEntryValue][] = []
-  constructor() {}
+  constructor(form?: any) {
+    if (form !== undefined) {
+      throw new Error(
+        "Failed to construct 'FormData': the 'form' option is unsupported."
+      )
+    }
+  }
 
   append(name: string, value: string | BlobPolyfill, fileName?: string) {
     ensureArgs(arguments, 2)
