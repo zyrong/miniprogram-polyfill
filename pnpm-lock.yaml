@@ -39,6 +39,7 @@ importers:
       miniprogram-blob: workspace:^1.0.0
       miniprogram-file: workspace:^1.0.0
       miniprogram-formdata: workspace:^1.0.0
+      miniprogram-text-decoder: workspace:^1.0.0
       miniprogram-text-encoder: workspace:^1.0.0
       prettier: ^2.5.1
       rimraf: ^3.0.2
@@ -53,6 +54,7 @@ importers:
       miniprogram-blob: link:packages/blob
       miniprogram-file: link:packages/file
       miniprogram-formdata: link:packages/form-data
+      miniprogram-text-decoder: link:packages/text-decoder
       miniprogram-text-encoder: link:packages/text-encoder
     devDependencies:
       '@babel/core': registry.npmmirror.com/@babel/core/7.17.9
@@ -96,7 +98,12 @@ importers:
       typescript: registry.npmmirror.com/typescript/4.6.3
 
   packages/blob:
-    specifiers: {}
+    specifiers:
+      miniprogram-text-decoder: workspace:^1.0.0
+      miniprogram-text-encoder: workspace:^1.0.0
+    dependencies:
+      miniprogram-text-decoder: link:../text-decoder
+      miniprogram-text-encoder: link:../text-encoder
 
   packages/file:
     specifiers:

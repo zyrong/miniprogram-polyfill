@@ -1,3 +1,6 @@
+import TextEncoder from 'miniprogram-text-encoder'
+import TextDecoder from 'miniprogram-text-decoder'
+
 type TypedArray =
   | Uint8Array
   | Uint8ClampedArray
@@ -12,8 +15,8 @@ type TypedArray =
 export type BufferSource = ArrayBufferView | ArrayBuffer
 export type BlobPolyfillPart = BufferSource | BlobPolyfill | string
 export interface BlobPolyfillPropertyBag {
-  type: string
-  endings: 'transparent'
+  type?: string
+  endings?: 'transparent'
 }
 
 function isDataView(obj: any): obj is DataView {
@@ -65,182 +68,8 @@ function concatTypedarrays(chunks: Array<ArrayLike<number> | TypedArray>) {
   return b
 }
 
-/********************************************************/
-/*               String Encoder fallback                */
-/********************************************************/
-function stringEncode(string: string) {
-  let pos = 0
-  const len = string.length
-  const Arr = Uint8Array || Array // Use byte array when possible
-
-  let at = 0 // output position
-  let tlen = Math.max(32, len + (len >> 1) + 7) // 1.5x size
-  let target = new Arr((tlen >> 3) << 3) // ... but at 8 byte offset
-
-  while (pos < len) {
-    let value = string.charCodeAt(pos++)
-    if (value >= 0xd800 && value <= 0xdbff) {
-      // high surrogate
-      if (pos < len) {
-        const extra = string.charCodeAt(pos)
-        if ((extra & 0xfc00) === 0xdc00) {
-          ++pos
-          value = ((value & 0x3ff) << 10) + (extra & 0x3ff) + 0x10000
-        }
-      }
-      if (value >= 0xd800 && value <= 0xdbff) {
-        continue // drop lone surrogate
-      }
-    }
-
-    // expand the buffer if we couldn't write 4 bytes
-    if (at + 4 > target.length) {
-      tlen += 8 // minimum extra
-      tlen *= 1.0 + (pos / string.length) * 2 // take 2x the remaining
-      tlen = (tlen >> 3) << 3 // 8 byte offset
-
-      const update = new Uint8Array(tlen)
-      update.set(target)
-      target = update
-    }
-
-    if ((value & 0xffffff80) === 0) {
-      // 1-byte
-      target[at++] = value // ASCII
-      continue
-    } else if ((value & 0xfffff800) === 0) {
-      // 2-byte
-      target[at++] = ((value >> 6) & 0x1f) | 0xc0
-    } else if ((value & 0xffff0000) === 0) {
-      // 3-byte
-      target[at++] = ((value >> 12) & 0x0f) | 0xe0
-      target[at++] = ((value >> 6) & 0x3f) | 0x80
-    } else if ((value & 0xffe00000) === 0) {
-      // 4-byte
-      target[at++] = ((value >> 18) & 0x07) | 0xf0
-      target[at++] = ((value >> 12) & 0x3f) | 0x80
-      target[at++] = ((value >> 6) & 0x3f) | 0x80
-    } else {
-      // FIXME: do we care
-      continue
-    }
-
-    target[at++] = (value & 0x3f) | 0x80
-  }
-
-  return target.slice(0, at)
-}
-
-/********************************************************/
-/*               String Decoder fallback                */
-/********************************************************/
-function stringDecode(buf: TypedArray) {
-  const end = buf.length
-  const res = []
-
-  // eslint-disable-next-line no-var
-  var i = 0
-  while (i < end) {
-    const firstByte = buf[i]
-    let codePoint = null
-    let bytesPerSequence =
-      firstByte > 0xef ? 4 : firstByte > 0xdf ? 3 : firstByte > 0xbf ? 2 : 1
-
-    if (i + bytesPerSequence <= end) {
-      let secondByte, thirdByte, fourthByte, tempCodePoint
-
-      switch (bytesPerSequence) {
-        case 1:
-          if (firstByte < 0x80) {
-            codePoint = firstByte
-          }
-          break
-        case 2:
-          secondByte = buf[i + 1]
-          if ((secondByte & 0xc0) === 0x80) {
-            tempCodePoint = ((firstByte & 0x1f) << 0x6) | (secondByte & 0x3f)
-            if (tempCodePoint > 0x7f) {
-              codePoint = tempCodePoint
-            }
-          }
-          break
-        case 3:
-          secondByte = buf[i + 1]
-          thirdByte = buf[i + 2]
-          if ((secondByte & 0xc0) === 0x80 && (thirdByte & 0xc0) === 0x80) {
-            tempCodePoint =
-              ((firstByte & 0xf) << 0xc) |
-              ((secondByte & 0x3f) << 0x6) |
-              (thirdByte & 0x3f)
-            if (
-              tempCodePoint > 0x7ff &&
-              (tempCodePoint < 0xd800 || tempCodePoint > 0xdfff)
-            ) {
-              codePoint = tempCodePoint
-            }
-          }
-          break
-        case 4:
-          secondByte = buf[i + 1]
-          thirdByte = buf[i + 2]
-          fourthByte = buf[i + 3]
-          if (
-            (secondByte & 0xc0) === 0x80 &&
-            (thirdByte & 0xc0) === 0x80 &&
-            (fourthByte & 0xc0) === 0x80
-          ) {
-            tempCodePoint =
-              ((firstByte & 0xf) << 0x12) |
-              ((secondByte & 0x3f) << 0xc) |
-              ((thirdByte & 0x3f) << 0x6) |
-              (fourthByte & 0x3f)
-            if (tempCodePoint > 0xffff && tempCodePoint < 0x110000) {
-              codePoint = tempCodePoint
-            }
-          }
-      }
-    }
-
-    if (codePoint === null) {
-      // we did not generate a valid codePoint so insert a
-      // replacement char (U+FFFD) and advance only 1 byte
-      codePoint = 0xfffd
-      bytesPerSequence = 1
-    } else if (codePoint > 0xffff) {
-      // encode to utf16 (surrogate pair dance)
-      codePoint -= 0x10000
-      res.push(((codePoint >>> 10) & 0x3ff) | 0xd800)
-      codePoint = 0xdc00 | (codePoint & 0x3ff)
-    }
-
-    res.push(codePoint)
-    i += bytesPerSequence
-  }
-
-  const len = res.length
-  let str = ''
-  // eslint-disable-next-line no-var
-  var i = 0
-
-  while (i < len) {
-    // eslint-disable-next-line prefer-spread
-    str += String.fromCharCode.apply(String, res.slice(i, (i += 0x1000)))
-  }
-
-  return str
-}
-
-// string -> buffer
-const textEncode =
-  typeof TextEncoder === 'function'
-    ? TextEncoder.prototype.encode.bind(new TextEncoder())
-    : stringEncode
-
-// buffer -> string
-const textDecode =
-  typeof TextDecoder === 'function'
-    ? TextDecoder.prototype.decode.bind(new TextDecoder())
-    : stringDecode
+const textEncode = TextEncoder.prototype.encode.bind(new TextEncoder())
+const textDecode = TextDecoder.prototype.decode.bind(new TextDecoder())
 
 function isSamePolyfill(val: any): val is BlobPolyfill {
   return val.arrayBuffer && val._buffer instanceof Uint8Array
@@ -253,8 +82,12 @@ class BlobPolyfill {
 
   constructor(
     blobParts: BlobPolyfillPart[] = [],
-    options: BlobPolyfillPropertyBag = { type: '', endings: 'transparent' }
+    options?: BlobPolyfillPropertyBag
   ) {
+    options = options || {}
+    options.endings = options.endings || 'transparent'
+    options.type = options.type || ''
+
     if (options.endings !== 'transparent') {
       throw new TypeError(
         `Failed to construct 'Blob': Failed to read the 'endings' property from 'BlobPropertyBag': The provided value '${options.endings}' is not a valid enum value of type EndingType.`

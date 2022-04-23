@@ -34,7 +34,10 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
-  "dependencies": {},
+  "dependencies": {
+    "miniprogram-text-decoder": "workspace:^1.0.0",
+    "miniprogram-text-encoder": "workspace:^1.0.0"
+  },
   "devDependencies": {},
   "bugs": {
     "url": "https://github.com/zyrong/miniprogram-polyfill/issues"

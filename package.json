@@ -39,6 +39,7 @@
     "miniprogram-blob": "workspace:^1.0.0",
     "miniprogram-file": "workspace:^1.0.0",
     "miniprogram-formdata": "workspace:^1.0.0",
+    "miniprogram-text-decoder": "workspace:^1.0.0",
     "miniprogram-text-encoder": "workspace:^1.0.0"
   },
   "devDependencies": {
