@@ -236,3 +236,24 @@ export function npmlink(pkgPath: string) {
     }),
   ])
 }
+
+export async function syncPkgVersion(name: string, version: string) {
+  const miniprogramTests = path.join(root, 'miniprogram-tests')
+  const dirnames = await fs.readdir(miniprogramTests)
+  await Promise.allSettled(
+    dirnames.map(async (dirname) => {
+      const pkgPath = path.join(miniprogramTests, dirname, 'package.json')
+      try {
+        await fs.access(pkgPath)
+        const buffer = await fs.readFile(pkgPath)
+        const pkgString = buffer.toString()
+        const pkg = JSON.parse(pkgString)
+        if (pkg['dependencies'][name] !== version) {
+          pkg['dependencies'][name] = version
+          fs.writeFile(pkgPath, JSON.stringify(pkg, null, 2))
+        }
+      } catch (error) {}
+    })
+  )
+  return
+}

@@ -1,0 +1,48 @@
+{
+  "name": "miniprogram-text-encoder",
+  "version": "1.0.0",
+  "private": false,
+  "description": "mini program file polyfill",
+  "jsnext:main": "dist/index.es.js",
+  "module": "dist/index.es.js",
+  "main": "dist/index.js",
+  "miniprogram": "dist",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "index.d.ts"
+  ],
+  "keywords": [
+    "miniprogram",
+    "wx",
+    "winxin",
+    "支付宝",
+    "微信",
+    "字节",
+    "小程序",
+    "text-encoder",
+    "polyfill"
+  ],
+  "scripts": {
+    "build": "gulp -f ./gulpfile.ts build",
+    "dev": "gulp -f ./gulpfile.ts dev",
+    "test": "jest",
+    "release": "ts-node ../../builds/release.ts"
+  },
+  "author": "zyrong",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+  },
+  "bugs": {
+    "url": "https://github.com/zyrong/miniprogram-polyfill/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zyrong/miniprogram-polyfill/tree/master/packages/text-encoder"
+  },
+  "homepage": "https://github.com/zyrong/miniprogram-polyfill/blob/master/packages/text-encoder/README.md",
+  "license": "MIT"
+}

@@ -35,10 +35,11 @@
     "publish": "pnpm publish --no-git-checks"
   },
   "dependencies": {
-    "formdata-encode": "workspace:^0.0.1",
+    "formdata-encode": "workspace:^1.0.0",
     "miniprogram-blob": "workspace:^1.0.0",
     "miniprogram-file": "workspace:^1.0.0",
-    "miniprogram-formdata": "workspace:^1.0.0"
+    "miniprogram-formdata": "workspace:^1.0.0",
+    "miniprogram-text-encoder": "workspace:^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",

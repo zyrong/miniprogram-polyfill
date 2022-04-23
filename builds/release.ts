@@ -8,33 +8,38 @@ import { root } from './index'
 async function syncVersion(pkgName: string, version: string) {
   const packages = path.join(root, 'packages')
   const dirnames = await fs.readdir(packages)
-  dirnames.forEach(async (dirname) => {
-    try {
-      const pkgJsonPath = path.join(packages, dirname, 'package.json')
-      await fs.access(pkgJsonPath)
-      const buffer = await fs.readFile(pkgJsonPath)
-      const pkg = JSON.parse(buffer.toString())
-      const depsKey = ['dependencies', 'devDependencies']
-      let isChange = false
-      depsKey.forEach((key) => {
-        if (pkg[key] && pkg[key][pkgName]) {
-          let pattern = '(?:workspace:)?'
-          if (/\d/.test(version[0])) {
-            pattern += '[^\\d]?'
-          }
-          pattern = `(${pattern}).*`
-          const regex = new RegExp(pattern)
-
-          pkg[key][pkgName] = (pkg[key][pkgName] as string).replace(
-            regex,
-            `$1${version}`
-          )
-          isChange = true
-        }
-      })
-      isChange && fs.writeFile(pkgJsonPath, JSON.stringify(pkg, null, 2))
-    } catch (error) {}
+  const pkgJsonPathList = dirnames.map((dirname) => {
+    return path.join(packages, dirname, 'package.json')
   })
+  pkgJsonPathList.push(path.join(root, 'package.json'))
+  await Promise.allSettled(
+    pkgJsonPathList.map(async (pkgJsonPath) => {
+      try {
+        await fs.access(pkgJsonPath)
+        const buffer = await fs.readFile(pkgJsonPath)
+        const pkg = JSON.parse(buffer.toString())
+        const depsKey = ['dependencies', 'devDependencies']
+        let isChange = false
+        depsKey.forEach((key) => {
+          if (pkg[key] && pkg[key][pkgName]) {
+            let pattern = '(?:workspace:)?'
+            if (/\d/.test(version[0])) {
+              pattern += '[^\\d]?'
+            }
+            pattern = `(${pattern}).*`
+            const regex = new RegExp(pattern)
+
+            pkg[key][pkgName] = (pkg[key][pkgName] as string).replace(
+              regex,
+              `$1${version}`
+            )
+            isChange = true
+          }
+        })
+        isChange && fs.writeFile(pkgJsonPath, JSON.stringify(pkg, null, 2))
+      } catch (error) {}
+    })
+  )
 }
 
 async function release() {
