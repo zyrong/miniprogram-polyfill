@@ -123,3 +123,13 @@ it('set()', () => {
   fd.set('a', '3')
   expect(fd.getAll('a')).toEqual(['3'])
 })
+
+it('toString', () => {
+  const fd = new FormData()
+  expect(fd.toString()).toBe('[object FormData]')
+})
+
+it('Object.prototype.toString.call', () => {
+  const fd = new FormData()
+  expect(Object.prototype.toString.call(fd)).toBe('[object FormData]')
+})

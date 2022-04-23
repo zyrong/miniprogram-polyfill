@@ -26,3 +26,7 @@ it('fileContent', (done) => {
 it('toString', () => {
   expect(file.toString()).toBe('[object File]')
 })
+
+it('Object.prototype.toString.call', () => {
+  expect(Object.prototype.toString.call(file)).toBe('[object File]')
+})
