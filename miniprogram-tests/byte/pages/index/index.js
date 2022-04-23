@@ -1,10 +1,17 @@
 const Blob = require('miniprogram-blob')
 const File = require('miniprogram-file')
 const FormData = require('miniprogram-formdata')
+const TextEncoder = require('miniprogram-text-encoder')
+const TextDecoder = require('miniprogram-text-decoder')
 
 Page({
   data: {},
   onLoad: function () {
+    const encoder = new TextEncoder()
+    const decoder = new TextDecoder()
+    const str = '测试: TextEncoder、TextDecoder'
+    console.log(decoder.decode(encoder.encode(str)))
+
     const blob = new Blob(['blob'])
     blob.text().then((text) => {
       console.log(text)

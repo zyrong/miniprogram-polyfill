@@ -3,6 +3,8 @@
     "miniprogram-blob": "1.0.2",
     "miniprogram-file": "1.0.1",
     "miniprogram-formdata": "1.0.0",
-    "formdata-encode": "1.0.0"
+    "formdata-encode": "1.0.0",
+    "miniprogram-text-encoder": "1.0.0",
+    "miniprogram-text-decoder": "1.0.0"
   }
 }

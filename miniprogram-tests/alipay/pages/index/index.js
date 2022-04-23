@@ -1,9 +1,16 @@
 import Blob from 'miniprogram-blob'
 import File from 'miniprogram-file'
+import TextEncoder from 'miniprogram-text-encoder'
+import TextDecoder from 'miniprogram-text-decoder'
 
 Page({
   onLoad(query) {
     // 页面加载
+    const encoder = new TextEncoder()
+    const decoder = new TextDecoder()
+    const str = '测试: TextEncoder、TextDecoder'
+    console.log(decoder.decode(encoder.encode(str)))
+
     const blob = new Blob(['string'])
     blob.text().then((text) => {
       console.log(text)
