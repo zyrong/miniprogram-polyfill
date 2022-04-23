@@ -16,7 +16,7 @@
 
 ## 需要注意的问题
 - 需要注意的是小程序环境不支持ReadableStream，所以如果需要使用Blob.stream()，那么需要引入对应[polyfill](https://github.com/MattiasBuelens/web-streams-polyfill)
-- Blob构造函数的第二个参数[options.endings](https://developer.mozilla.org/zh-CN/docs/Web/API/Blob/Blob)不支持指定。
+- Blob构造函数的第二个参数[options.endings](https://developer.mozilla.org/zh-CN/docs/Web/API/Blob/Blob)不支持指定为```native```。
 
 <br/>
 

@@ -13,6 +13,11 @@
 
 <br/>
 
+
+## 需要注意的问题
+在浏览器中[FormData构造函数](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/FormData)可以接收表单元素form作为参数，此polyfill不支持！  
+<br/>
+
 ## usage
 ```js
 import FormData from 'miniprogram-formdata'
@@ -36,9 +41,6 @@ fd.append('blob', new Blob(['abc']))
 
 <br/>
 
-## 需要注意的问题
-在浏览器中[FormData构造函数](https://developer.mozilla.org/zh-CN/docs/Web/API/FormData/FormData)可以接收表单元素form作为参数，此polyfill不支持！  
-<br/>
 
 ## 例子: 在小程序中使用FormData进行HTTP请求
 下面使用微信小程序作为例子，其他小程序参照修改即可.
