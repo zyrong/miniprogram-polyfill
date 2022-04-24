@@ -30,6 +30,7 @@
     "eslint:fix": "eslint --config ./.eslintrc.js --fix --ext .js,.ts ./",
     "prettier": "prettier --config ./.prettierrc.js --write **/*.{js,ts}",
     "test": "echo 'skip test'",
+    "all-test": "jest",
     "build": "gulp -f ./gulpfile.ts build",
     "run-mp-test-lib": "ts-node ./miniprogram-tests/test-lib.ts",
     "release": "ts-node ./builds/release.ts"
