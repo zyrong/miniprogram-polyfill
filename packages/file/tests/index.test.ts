@@ -2,7 +2,7 @@
 globalThis.Blob = undefined as any
 globalThis.File = undefined as any
 
-import File from '../index'
+import File from '../src/index'
 
 const lastModified = Date.now()
 const type = 'test'

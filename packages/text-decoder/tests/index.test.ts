@@ -1,4 +1,4 @@
-import TextDecoder from '..'
+import TextDecoder from '../src'
 import { TextEncoder } from 'util'
 
 const decoder = new TextDecoder()

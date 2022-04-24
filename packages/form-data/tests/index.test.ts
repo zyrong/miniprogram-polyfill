@@ -3,7 +3,7 @@ globalThis.FormData = undefined as any
 globalThis.Blob = undefined as any
 globalThis.File = undefined as any
 
-import FormData from '../index'
+import FormData from '../src/index'
 import Blob from 'miniprogram-blob'
 import File from 'miniprogram-file'
 

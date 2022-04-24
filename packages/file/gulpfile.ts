@@ -13,7 +13,7 @@ import {
 } from '../../builds/index'
 
 const pkgRoot = path.join(__dirname, '.')
-const srcGlob = path.join(pkgRoot, './index.ts')
+const srcGlob = path.join(pkgRoot, './src/index.ts')
 const dest = path.join(pkgRoot, path.dirname(packageJson.main))
 const cjsFilename = path.basename(packageJson.main)
 const esmFilename = path.basename(packageJson.module)

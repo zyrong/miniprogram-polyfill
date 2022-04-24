@@ -2,7 +2,7 @@
 globalThis.Blob = undefined as any
 
 import { TextEncoder } from 'util'
-import Blob from '../index'
+import Blob from '../src/index'
 
 const textEncode = TextEncoder.prototype.encode.bind(new TextEncoder())
 

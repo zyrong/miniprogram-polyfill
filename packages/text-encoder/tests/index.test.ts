@@ -1,5 +1,5 @@
 import { TextDecoder } from 'util'
-import TextEncoder from '..'
+import TextEncoder from '../src'
 
 const decoder = new TextDecoder()
 const encoder = new TextEncoder()
