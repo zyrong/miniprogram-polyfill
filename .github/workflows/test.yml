@@ -34,4 +34,4 @@ jobs:
     - run: npm i -g pnpm
     - run: pnpm config set registry https://registry.npmmirror.com
     - run: pnpm i
-    - run: pnpm run all-test
+    - run: pnpm run test-ci
