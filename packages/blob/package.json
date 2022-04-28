@@ -27,16 +27,15 @@
   "scripts": {
     "build": "gulp -f ./gulpfile.ts build",
     "dev": "gulp -f ./gulpfile.ts dev",
-    "test": "jest",
-    "release": "ts-node ../../builds/release.ts"
+    "test": "jest"
   },
   "author": "zyrong",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "miniprogram-text-decoder": "workspace:^1.0.0",
-    "miniprogram-text-encoder": "workspace:^1.0.0"
+    "miniprogram-text-decoder": "workspace:*",
+    "miniprogram-text-encoder": "workspace:*"
   },
   "devDependencies": {},
   "bugs": {

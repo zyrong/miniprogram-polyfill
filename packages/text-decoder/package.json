@@ -27,8 +27,7 @@
   "scripts": {
     "build": "gulp -f ./gulpfile.ts build",
     "dev": "gulp -f ./gulpfile.ts dev",
-    "test": "jest",
-    "release": "ts-node ../../builds/release.ts"
+    "test": "jest"
   },
   "author": "zyrong",
   "publishConfig": {

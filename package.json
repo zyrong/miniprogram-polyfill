@@ -29,6 +29,8 @@
   "scripts": {
     "eslint:fix": "eslint --config ./.eslintrc.js --fix --ext .js,.ts ./",
     "prettier": "prettier --config ./.prettierrc.js --write **/*.{js,ts}",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
     "test": "echo 'skip test'",
     "test-ci": "pnpm run --filter=\"*\" build && jest",
     "build": "gulp -f ./gulpfile.ts build",
@@ -36,15 +38,16 @@
     "release": "ts-node ./builds/release.ts"
   },
   "dependencies": {
-    "formdata-encode": "workspace:^1.0.0",
-    "miniprogram-blob": "workspace:^1.0.0",
-    "miniprogram-file": "workspace:^1.0.0",
-    "miniprogram-formdata": "workspace:^1.0.0",
-    "miniprogram-text-decoder": "workspace:^1.0.0",
-    "miniprogram-text-encoder": "workspace:^1.0.0"
+    "formdata-encode": "workspace:*",
+    "miniprogram-blob": "workspace:*",
+    "miniprogram-file": "workspace:*",
+    "miniprogram-formdata": "workspace:*",
+    "miniprogram-text-decoder": "workspace:*",
+    "miniprogram-text-encoder": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
+    "@changesets/cli": "^2.22.0",
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
     "@types/express": "^4.17.13",

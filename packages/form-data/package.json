@@ -27,19 +27,18 @@
   "scripts": {
     "build": "gulp -f ./gulpfile.ts build",
     "dev": "gulp -f ./gulpfile.ts dev",
-    "test": "jest",
-    "release": "ts-node ../../builds/release.ts"
+    "test": "jest"
   },
   "author": "zyrong",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
-    "miniprogram-file": "workspace:^1.0.0",
+    "miniprogram-file": "workspace:*",
     "tslib": "^2.3.1"
   },
   "devDependencies": {
-    "miniprogram-blob": "workspace:^1.0.0"
+    "miniprogram-blob": "workspace:*"
   },
   "bugs": {
     "url": "https://github.com/zyrong/miniprogram-polyfill/issues"

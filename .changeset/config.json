@@ -1,0 +1,23 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@2.0.0/schema.json",
+  "changelog": [
+    "@changesets/changelog-github",
+    { "repo": "changesets/changesets" }
+  ],
+  "commit": false,
+  "fixed": [],
+  "linked": [
+    [
+      "miniprogram-blob",
+      "miniprogram-text-decoder",
+      "miniprogram-text-encoder"
+    ],
+    ["miniprogram-file", "miniprogram-blob"],
+    ["miniprogram-formdata", "miniprogram-file"],
+    ["formdata-encode", "miniprogram-blob"]
+  ],
+  "access": "public",
+  "baseBranch": "origin/master",
+  "updateInternalDependencies": "patch",
+  "ignore": []
+}
