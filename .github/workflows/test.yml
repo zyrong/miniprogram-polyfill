@@ -37,4 +37,4 @@ jobs:
         cache: 'pnpm'
     - run: pnpm config set registry https://registry.npmmirror.com
     - run: pnpm i
-    - run: pnpm run test-ci
+    - run: pnpm run --filter=\"*\" build && pnpm -r --filter ./packages run jest

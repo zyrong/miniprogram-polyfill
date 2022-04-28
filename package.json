@@ -32,7 +32,6 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "test": "echo 'skip test'",
-    "test-ci": "pnpm run --filter=\"*\" build && jest",
     "build": "gulp -f ./gulpfile.ts build",
     "run-mp-test-lib": "ts-node ./miniprogram-tests/test-lib.ts",
     "release": "ts-node ./builds/release.ts"
