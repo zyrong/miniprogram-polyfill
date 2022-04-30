@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@2.0.0/schema.json",
   "changelog": [
     "@changesets/changelog-github",
-    { "repo": "changesets/changesets" }
+    { "repo": "zyrong/miniprogram-polyfill" }
   ],
   "commit": false,
   "fixed": [],
@@ -17,7 +17,7 @@
     ["formdata-encode", "miniprogram-blob"]
   ],
   "access": "public",
-  "baseBranch": "origin/master",
+  "baseBranch": "master",
   "updateInternalDependencies": "patch",
   "ignore": []
 }
