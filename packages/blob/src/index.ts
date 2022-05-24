@@ -71,14 +71,15 @@ function concatTypedarrays(chunks: Array<ArrayLike<number> | TypedArray>) {
 const textEncode = TextEncoder.prototype.encode.bind(new TextEncoder())
 const textDecode = TextDecoder.prototype.decode.bind(new TextDecoder())
 
+const _buffer = Symbol('BlobPolyfill_buffer')
 function isSamePolyfill(val: any): val is BlobPolyfill {
-  return val.arrayBuffer && val._buffer instanceof Uint8Array
+  return val[_buffer]
 }
 
 class BlobPolyfill {
-  private _buffer: Uint8Array
-  size: number
-  type: string
+  declare [_buffer]: Uint8Array
+  readonly size: number
+  readonly type: string
 
   constructor(
     blobParts: BlobPolyfillPart[] = [],
@@ -101,7 +102,7 @@ class BlobPolyfill {
       // 当使用miniprogram-formdata，同时又使用miniprogram-blob/file的版本和miniprogram-formdata内置的不相同时，
       // 此时由于是两个不同的构造函数，所以instanceof判断会出现问题。
       if (isSamePolyfill(chunk)) {
-        chunks[i] = chunk._buffer
+        chunks[i] = chunk[_buffer]
       } else if (typeof chunk === 'string') {
         chunks[i] = textEncode(chunk)
       } else if (
@@ -116,8 +117,8 @@ class BlobPolyfill {
       }
     }
 
-    this._buffer = concatTypedarrays(chunks)
-    this.size = this._buffer.length
+    this[_buffer] = concatTypedarrays(chunks)
+    this.size = this[_buffer].length
 
     this.type = options.type
     if (/[^\u0020-\u007E]/.test(this.type)) {
@@ -128,7 +129,7 @@ class BlobPolyfill {
   }
 
   slice(start?: number, end?: number, type?: string) {
-    const slice = this._buffer.slice(start || 0, end || this._buffer.length)
+    const slice = this[_buffer].slice(start || 0, end || this[_buffer].length)
     return new BlobPolyfill([slice], {
       type: type,
     })
@@ -141,7 +142,7 @@ class BlobPolyfill {
   arrayBuffer(): Promise<ArrayBuffer> {
     return new Promise((resolve, reject) => {
       try {
-        resolve((this._buffer.buffer || this._buffer).slice(0))
+        resolve((this[_buffer].buffer || this[_buffer]).slice(0))
       } catch (error) {
         reject(new Error('Failed to read the blob/file'))
       }
@@ -151,7 +152,7 @@ class BlobPolyfill {
   text(): Promise<string> {
     return new Promise((resolve, reject) => {
       try {
-        resolve(textDecode(this._buffer))
+        resolve(textDecode(this[_buffer]))
       } catch (error) {
         reject(new Error('Failed to read the blob/file'))
       }
@@ -164,6 +165,13 @@ class BlobPolyfill {
     )
   }
 }
+
+Object.defineProperty(BlobPolyfill.prototype, _buffer, {
+  configurable: false,
+  enumerable: false,
+  writable: true,
+  value: undefined,
+})
 
 if (typeof Symbol !== 'undefined' && Symbol.toStringTag) {
   Object.defineProperty(BlobPolyfill.prototype, Symbol.toStringTag, {

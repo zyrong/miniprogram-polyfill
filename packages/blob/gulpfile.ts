@@ -57,7 +57,10 @@ function removeDTS_buffer() {
   return new Promise((resolve, reject) => {
     const d_ts_path = path.join(pkgRoot, './dist/index.d.ts')
     fs.readFile(d_ts_path).then((buffer) => {
-      const string = buffer.toString().replace(/\s.*?private _buffer;/, '')
+      const string = buffer
+        .toString()
+        .replace(/\s.*?\[_buffer\]: Uint8Array;/, '')
+        .replace('declare const _buffer: unique symbol;', '')
       fs.writeFile(d_ts_path, string).then(resolve)
     })
   })
