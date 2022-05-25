@@ -21,6 +21,7 @@ const esmFilename = path.basename(packageJson.module)
 const delPath = path.join(pkgRoot, 'dist')
 
 export function dev() {
+  npmlink(pkgRoot)
   return gulp.watch(srcGlob, { ignoreInitial: false }, async (done) => {
     try {
       await delDist(delPath)
@@ -30,7 +31,6 @@ export function dev() {
       ])
       await removeDTS_RawFormdata()
       await removeDTS_buffer()
-      await npmlink(pkgRoot)
       await buildNpm()
       done()
     } catch (error: any) {
