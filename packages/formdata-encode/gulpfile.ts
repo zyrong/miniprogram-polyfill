@@ -19,6 +19,7 @@ const esmFilename = path.basename(packageJson.module)
 const delPath = path.join(pkgRoot, 'dist')
 
 export function dev() {
+  npmlink(pkgRoot)
   return gulp.watch(srcGlob, { ignoreInitial: false }, async (done) => {
     try {
       await delDist(delPath)
@@ -26,7 +27,6 @@ export function dev() {
         buildCjs(srcGlob, dest, { 'index.js': cjsFilename }),
         buildEsm(srcGlob, dest, { 'index.js': esmFilename }),
       ])
-      await npmlink(pkgRoot)
       await buildNpm()
       done()
     } catch (error: any) {
