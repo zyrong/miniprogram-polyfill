@@ -21,7 +21,6 @@ const esmFilename = path.basename(packageJson.module)
 const delPath = path.join(pkgRoot, 'dist')
 
 export function dev() {
-  npmlink(pkgRoot)
   return gulp.watch(srcGlob, { ignoreInitial: false }, async (done) => {
     try {
       await delDist(delPath)
@@ -29,7 +28,6 @@ export function dev() {
         buildCjs(srcGlob, dest, { 'index.js': cjsFilename }),
         buildEsm(srcGlob, dest, { 'index.js': esmFilename }),
       ])
-      await removeDTS_RawFile()
       await buildNpm()
       done()
     } catch (error: any) {
@@ -45,22 +43,8 @@ export async function build(done: TaskCallback) {
       buildCjs(srcGlob, dest, { 'index.js': cjsFilename }, true),
       buildEsm(srcGlob, dest, { 'index.js': esmFilename }, true),
     ])
-    await removeDTS_RawFile()
     done()
   } catch (error: any) {
     done(error)
   }
-}
-
-function removeDTS_RawFile() {
-  return new Promise((resolve, reject) => {
-    const d_ts_path = path.join(pkgRoot, './dist/index.d.ts')
-    fs.readFile(d_ts_path).then((buffer) => {
-      let string = buffer
-        .toString()
-        .replace(/declare const _default((.|\r|\n)*)/, '')
-      string = string + os.EOL + 'export default FilePolyfill'
-      fs.writeFile(d_ts_path, string).then(resolve)
-    })
-  })
 }
