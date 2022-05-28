@@ -7,7 +7,7 @@
   "module": "dist/index.es.js",
   "main": "dist/index.js",
   "miniprogram": "dist",
-  "types": "dist/index.d.ts",
+  "types": "./index.d.ts",
   "files": [
     "dist",
     "README.md",
