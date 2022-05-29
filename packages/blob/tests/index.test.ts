@@ -1,8 +1,10 @@
 // 防止使用当前环境中的Blob，强制使用对应的Polyfill,
 globalThis.Blob = undefined as any
+globalThis.File = undefined as any
 
 import { TextEncoder } from 'util'
 import Blob from '../src/index'
+import File from '../../file'
 
 const textEncode = TextEncoder.prototype.encode.bind(new TextEncoder())
 
@@ -112,6 +114,14 @@ it('new Blob([{}])', (done) => {
   const blob = new Blob([{} as any])
   blob.text().then((text) => {
     expect(text).toBe('[object Object]')
+    done()
+  })
+})
+
+it('new Blob([new File(["file"], "filename")', (done) => {
+  const blob = new Blob([new File(['file'], 'filename')])
+  blob.text().then((text) => {
+    expect(text).toBe('file')
     done()
   })
 })
