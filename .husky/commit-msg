@@ -1,2 +1,1 @@
-# commitlint -x @commitlint/config-conventional -e
-pnpm exec --no commitlint --edit $1
+pnpm exec commitlint  -x @commitlint/config-conventional -e $1
