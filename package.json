@@ -34,7 +34,7 @@
   },
   "packageManager": "pnpm@7.0.0",
   "scripts": {
-    "pnpm:devPreinstall": "gulp -f ./gulpfile.ts link",
+    "mpTestLink": "gulp -f ./gulpfile.ts mpTestLink",
     "eslint:fix": "eslint --config ./.eslintrc.js --fix --ext .js,.ts ./",
     "prettier": "prettier --config ./.prettierrc.js --write **/*.{js,ts}",
     "changeset": "changeset",
@@ -82,7 +82,7 @@
     "gulp": "^4.0.2",
     "gulp-terser": "^2.1.0",
     "gulp-typescript": "^6.0.0-alpha.1",
-    "husky": "4",
+    "husky": "8",
     "inquirer": "^8.2.2",
     "jest": "^27.5.1",
     "lint-staged": "^12.3.7",
@@ -101,12 +101,6 @@
       "npm run prettier",
       "npm run eslint:fix"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -x @commitlint/config-conventional -e"
-    }
   },
   "config": {
     "commitizen": {
