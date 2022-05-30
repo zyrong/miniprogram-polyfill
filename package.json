@@ -35,7 +35,7 @@
   "packageManager": "pnpm@7.0.0",
   "scripts": {
     "mpTestLink": "gulp -f ./gulpfile.ts mpTestLink",
-    "eslint:fix": "eslint --config ./.eslintrc.js --fix --ext .js,.ts ./",
+    "eslint:fix": "eslint --config ./.eslintrc.js --fix --ext .js,.ts",
     "prettier": "prettier --config ./.prettierrc.js --write **/*.{js,ts}",
     "changeset": "changeset",
     "version-packages": "changeset version",
