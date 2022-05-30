@@ -31,7 +31,7 @@ export async function build(done: TaskCallback) {
   }
 }
 
-export async function link(done: TaskCallback) {
+export async function mpTestLink(done: TaskCallback) {
   const log = function (list: any[]) {
     list.forEach((item) => {
       if (!item) return
@@ -42,6 +42,33 @@ export async function link(done: TaskCallback) {
       }
     })
   }
+
+  // 运行miniprogram-tests的小程序之前先对使用到的包进行link
+  const packagesPath = path.join(pkgRoot, 'packages')
+  const packageDirNameList = await fs.readdir(packagesPath)
+  const packagePathList = packageDirNameList.map((dirname) => {
+    const packagePath = path.join(packagesPath, dirname)
+    return packagePath
+  })
+
+  const packageNameList: string[] = (
+    await Promise.all(
+      packageDirNameList.map((dirname) => {
+        const packagePath = path.join(packagesPath, dirname)
+        return fs.readFile(path.join(packagePath, 'package.json'))
+      })
+    )
+  ).map((pkgJsonBuf) => {
+    return JSON.parse(pkgJsonBuf.toString()).name
+  })
+
+  const packageList = packagePathList.map((pkgPath, idx) => {
+    return {
+      pkgPath,
+      pkgName: packageNameList[idx],
+    }
+  })
+
   // 环境变量不生效时可以手动设置
   // const PNPM_HOME = '/Users/zhao/Library/pnpm'
   const execEnvOptions = {
@@ -52,33 +79,15 @@ export async function link(done: TaskCallback) {
     },
   }
 
-  // 运行miniprogram-tests的小程序之前先对使用到的包进行link
-  const packagesPath = path.join(pkgRoot, 'packages')
-  const packageDirNameList = await fs.readdir(packagesPath)
-  const createLinkResults = await Promise.all(
-    packageDirNameList.map((dirname) => {
-      const packagePath = path.join(packagesPath, dirname)
-
-      return exec('pnpm link --global', {
-        ...execEnvOptions,
-        cwd: packagePath,
-      }).catch((err) => {
-        return err
-      })
-    })
-  )
-  log(createLinkResults)
-
-  const packageNameList = (
-    await Promise.all(
-      packageDirNameList.map((dirname) => {
-        const packagePath = path.join(packagesPath, dirname)
-        return fs.readFile(path.join(packagePath, 'package.json'))
-      })
-    )
-  ).map((pkgJsonBuf) => {
-    return JSON.parse(pkgJsonBuf.toString()).name
-  })
+  // const createLinkResults = await Promise.all(
+  //   packageList.map(({ pkgPath }) => {
+  //     return exec(`pnpm link --global`, {
+  //       ...execEnvOptions,
+  //       cwd: pkgPath,
+  //     })
+  //   })
+  // )
+  // log(createLinkResults)
 
   const mpTestDirPath = path.join(pkgRoot, 'miniprogram-tests')
   let mpTestDirList = await fs.readdir(mpTestDirPath)
@@ -90,16 +99,25 @@ export async function link(done: TaskCallback) {
     mpTestDirList
       .map((dirname) => {
         const mpTestProjectPath = path.join(mpTestDirPath, dirname)
-        return packageNameList.map((pkgname) => {
-          return exec(`pnpm link --global ${pkgname}`, {
-            ...execEnvOptions,
-            cwd: mpTestProjectPath,
-          })
+        return packageList.map(({ pkgPath, pkgName }) => {
+          return fs
+            .stat(path.join(mpTestProjectPath, 'node_modules', pkgName))
+            .then(
+              (stat) => {},
+              (err) => {
+                return exec(`pnpm link ${pkgPath}`, {
+                  ...execEnvOptions,
+                  cwd: mpTestProjectPath,
+                })
+              }
+            )
         })
       })
       .flat()
   )
   log(linkPkgResults)
+
+  await buildNpm()
 
   done()
 }
