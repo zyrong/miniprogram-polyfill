@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 import Blob from 'miniprogram-blob'
 import File from 'miniprogram-file'
 

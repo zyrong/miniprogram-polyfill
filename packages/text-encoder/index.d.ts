@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 export interface TextEncoderCommon {
   /** Returns "utf-8". */
   readonly encoding: string

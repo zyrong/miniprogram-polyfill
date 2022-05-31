@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 export type EndingType = 'native' | 'transparent'
 
 export interface BlobPropertyBag {

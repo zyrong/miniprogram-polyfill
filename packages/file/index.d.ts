@@ -1,3 +1,5 @@
+/// <reference lib="dom" />
+
 import Blob, { BlobPart, BlobPropertyBag } from 'miniprogram-blob'
 
 export interface FilePropertyBag extends BlobPropertyBag {
