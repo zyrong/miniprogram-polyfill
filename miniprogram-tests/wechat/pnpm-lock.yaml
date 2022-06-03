@@ -1,7 +1,0 @@
-lockfileVersion: 5.3
-
-specifiers:
-  mini-program-blob: 1.0.0
-
-dependencies:
-  mini-program-blob: link:../..

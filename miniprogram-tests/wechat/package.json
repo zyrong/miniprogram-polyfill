@@ -10,7 +10,7 @@
     "miniprogram-formdata": "1.0.0",
     "miniprogram-text-decoder": "1.0.0",
     "miniprogram-text-encoder": "1.0.0",
-    "tslib": "^2.4.0"
+    "tslib": "^2.3.1"
   },
   "keywords": [],
   "author": "",
