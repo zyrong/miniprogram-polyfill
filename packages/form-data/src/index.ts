@@ -42,22 +42,19 @@ if (typeof FormData === 'undefined') {
     return [name, value as FormDataEntryValue]
   }
 
-  const _data = new WeakMap<FakeFormData, [string, FormDataEntryValue][]>()
-
   class FakeFormData {
+    private _data: [string, FormDataEntryValue][] = []
     constructor(form?: any) {
       if (form !== undefined) {
         throw new Error(
           "Failed to construct 'FormData': the 'form' option is unsupported."
         )
       }
-
-      _data.set(this, [])
     }
 
     append(name: string, value: string | Blob, fileName?: string) {
       ensureArgs(arguments, 2)
-      _data.get(this)!.push(normalizeArgs(name, value, fileName))
+      this._data.push(normalizeArgs(name, value, fileName))
     }
 
     set(name: string, value: string | Blob, fileName?: string) {
@@ -70,7 +67,7 @@ if (typeof FormData === 'undefined') {
       // - replace the first occurrence with same name
       // - discards the remaining with same name
       // - while keeping the same order items where added
-      _data.get(this)!.forEach((item) => {
+      this._data.forEach((item) => {
         item[0] === name
           ? replace && (replace = !result.push(args))
           : result.push(item)
@@ -78,22 +75,19 @@ if (typeof FormData === 'undefined') {
 
       replace && result.push(args)
 
-      _data.set(this, result)
+      this._data = result
     }
 
     delete(name: string) {
       ensureArgs(arguments, 1)
 
       name = String(name)
-      _data.set(
-        this,
-        _data.get(this)!.filter((item) => item[0] !== name)
-      )
+      this._data = this._data.filter((item) => item[0] !== name)
     }
 
     get(name: string) {
       ensureArgs(arguments, 1)
-      const entries = _data.get(this)!
+      const entries = this._data
       name = String(name)
       for (let i = 0; i < entries.length; i++) {
         if (entries[i][0] === name) {
@@ -107,7 +101,7 @@ if (typeof FormData === 'undefined') {
       ensureArgs(arguments, 1)
 
       name = String(name)
-      return _data.get(this)!.reduce((prev, curr) => {
+      return this._data.reduce((prev, curr) => {
         curr[0] === name && prev.push(curr[1])
         return prev
       }, [] as Array<FormDataEntryValue>)
@@ -116,8 +110,8 @@ if (typeof FormData === 'undefined') {
     has(name: string) {
       ensureArgs(arguments, 1)
       name = String(name)
-      for (let i = 0; i < _data.get(this)!.length; i++) {
-        if (_data.get(this)![i][0] === name) {
+      for (let i = 0; i < this._data.length; i++) {
+        if (this._data[i][0] === name) {
           return true
         }
       }
@@ -125,8 +119,8 @@ if (typeof FormData === 'undefined') {
     }
 
     *entries() {
-      for (let i = 0; i < _data.get(this)!.length; i++) {
-        yield _data.get(this)![i]
+      for (let i = 0; i < this._data.length; i++) {
+        yield this._data[i]
       }
     }
 
