@@ -5,7 +5,7 @@ name: Test CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ 1.x, 2.x ]
     paths-ignore: # 下列文件的变更不触发
       - README.md
       - LICENSE
