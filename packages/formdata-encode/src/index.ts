@@ -1,4 +1,4 @@
-import Blob, { BlobPolyfillPart } from 'miniprogram-blob'
+import Blob, { BlobPart } from 'miniprogram-blob'
 import type FormData from 'miniprogram-formdata'
 
 function escape(str: string) {
@@ -15,7 +15,7 @@ export default function encode(formData: FormData) {
   if (Object.prototype.toString.call(formData) !== '[object FormData]') {
     throw new TypeError(`${formData} is not a FormData`)
   }
-  const chunks: BlobPolyfillPart[] = []
+  const chunks: BlobPart[] = []
   const boundary = '----formboundary' + Math.random(),
     p = `--${boundary}\r\nContent-Disposition: form-data; name="`
   formData.forEach(function (value, name) {

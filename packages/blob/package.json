@@ -1,17 +1,18 @@
 {
   "name": "miniprogram-blob",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": false,
   "description": "mini program blob polyfill",
   "jsnext:main": "dist/index.es.js",
   "module": "dist/index.es.js",
   "main": "dist/index.js",
   "miniprogram": "dist",
-  "types": "dist/index.d.ts",
+  "types": "./index.d.ts",
   "files": [
     "dist",
     "README.md",
-    "index.d.ts"
+    "index.d.ts",
+    "CHANGELOG.md"
   ],
   "keywords": [
     "miniprogram",
@@ -35,7 +36,8 @@
   },
   "dependencies": {
     "miniprogram-text-decoder": "workspace:*",
-    "miniprogram-text-encoder": "workspace:*"
+    "miniprogram-text-encoder": "workspace:*",
+    "tslib": "^2.3.1"
   },
   "devDependencies": {},
   "bugs": {

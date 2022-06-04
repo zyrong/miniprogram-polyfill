@@ -4,6 +4,10 @@ const FormData = require('miniprogram-formdata')
 const TextEncoder = require('miniprogram-text-encoder')
 const TextDecoder = require('miniprogram-text-decoder')
 const config = require('../../common/config')
+// 手机端 symbol link 报错
+// const config = {
+//   "origin": "http://192.168.50.28:3333"
+// }
 
 Page({
   data: {},

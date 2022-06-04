@@ -1,14 +1,17 @@
 {
   "name": "miniprogram-polyfill",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": false,
   "description": "小程序 miniprogram polyfill",
   "jsnext:main": "dist/index.es.js",
   "module": "dist/index.es.js",
   "main": "dist/index.js",
+  "types": "./index.d.ts",
   "files": [
+    "index.d.ts",
     "dist",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "keywords": [
     "miniprogram",
@@ -26,15 +29,24 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "engines": {
+    "node": ">=14",
+    "pnpm": ">=7.0.0"
+  },
+  "packageManager": "pnpm@7.0.0",
   "scripts": {
-    "eslint:fix": "eslint --config ./.eslintrc.js --fix --ext .js,.ts ./",
+    "mpTestLink": "gulp -f ./gulpfile.ts mpTestLink",
+    "eslint:fix": "eslint --config ./.eslintrc.js --fix --ext .js,.ts",
     "prettier": "prettier --config ./.prettierrc.js --write **/*.{js,ts}",
     "changeset": "changeset",
-    "version-packages": "changeset version",
     "test": "echo 'skip test'",
     "build": "gulp -f ./gulpfile.ts build",
     "run-mp-test-lib": "ts-node ./miniprogram-tests/test-lib.ts",
-    "release": "ts-node ./builds/release.ts"
+    "release": "ts-node ./builds/release.ts",
+    "ci:test": "pnpm -r --filter ./packages run test",
+    "ci:build": "pnpm run --filter=\"*...\" build && pnpm run build",
+    "ci:version": "changeset version",
+    "ci:publish": "pnpm run ci:test && pnpm run ci:build && pnpm publish -r"
   },
   "dependencies": {
     "formdata-encode": "workspace:*",
@@ -46,9 +58,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
+    "@changesets/changelog-github": "^0.4.4",
     "@changesets/cli": "^2.22.0",
     "@commitlint/cli": "^16.2.1",
     "@commitlint/config-conventional": "^16.2.1",
+    "@types/babel__core": "^7.1.19",
     "@types/express": "^4.17.13",
     "@types/express-formidable": "^1.2.0",
     "@types/gulp": "^4.0.9",
@@ -56,6 +70,7 @@
     "@types/inquirer": "^8.2.1",
     "@types/jest": "^27.4.1",
     "@types/rimraf": "^3.0.2",
+    "@types/undertaker": "^1.2.8",
     "@types/vinyl": "^2.0.6",
     "@typescript-eslint/eslint-plugin": "^5.17.0",
     "@typescript-eslint/parser": "^5.17.0",
@@ -72,7 +87,7 @@
     "gulp": "^4.0.2",
     "gulp-terser": "^2.1.0",
     "gulp-typescript": "^6.0.0-alpha.1",
-    "husky": "4",
+    "husky": "8",
     "inquirer": "^8.2.2",
     "jest": "^27.5.1",
     "lint-staged": "^12.3.7",
@@ -91,12 +106,6 @@
       "npm run prettier",
       "npm run eslint:fix"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged",
-      "commit-msg": "commitlint -x @commitlint/config-conventional -e"
-    }
   },
   "config": {
     "commitizen": {
