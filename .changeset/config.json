@@ -6,16 +6,7 @@
   ],
   "commit": false,
   "fixed": [],
-  "linked": [
-    [
-      "miniprogram-blob",
-      "miniprogram-text-decoder",
-      "miniprogram-text-encoder"
-    ],
-    ["miniprogram-file", "miniprogram-blob"],
-    ["miniprogram-formdata", "miniprogram-file"],
-    ["formdata-encode", "miniprogram-blob"]
-  ],
+  "linked": [],
   "access": "public",
   "baseBranch": "master",
   "updateInternalDependencies": "patch",
