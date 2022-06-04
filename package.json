@@ -43,8 +43,8 @@
     "build": "gulp -f ./gulpfile.ts build",
     "run-mp-test-lib": "ts-node ./miniprogram-tests/test-lib.ts",
     "release": "ts-node ./builds/release.ts",
-    "ci:test": "pnpm run --filter=\"*...\" test",
     "ci:build": "pnpm run --filter=\"*...\" build && pnpm run build",
+    "ci:test": "pnpm run --filter=\"*...\" test",
     "ci:version": "changeset version",
     "ci:publish": "pnpm run ci:build && pnpm run ci:test && pnpm publish -r --no-git-checks"
   },
