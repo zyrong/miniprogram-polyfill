@@ -1,6 +1,6 @@
 {
   "name": "miniprogram-file",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": false,
   "description": "mini program file polyfill",
   "jsnext:main": "dist/index.es.js",
@@ -11,7 +11,8 @@
   "files": [
     "dist",
     "README.md",
-    "index.d.ts"
+    "index.d.ts",
+    "CHANGELOG.md"
   ],
   "keywords": [
     "miniprogram",

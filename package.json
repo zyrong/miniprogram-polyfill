@@ -1,6 +1,6 @@
 {
   "name": "miniprogram-polyfill",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": false,
   "description": "小程序 miniprogram polyfill",
   "jsnext:main": "dist/index.es.js",
@@ -10,7 +10,8 @@
   "files": [
     "index.d.ts",
     "dist",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "keywords": [
     "miniprogram",
