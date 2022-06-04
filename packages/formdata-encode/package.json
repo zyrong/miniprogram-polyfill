@@ -1,6 +1,6 @@
 {
   "name": "formdata-encode",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": false,
   "description": "mini program formdata multipart/form-data encode",
   "jsnext:main": "dist/index.es.js",
@@ -11,7 +11,8 @@
   "files": [
     "dist",
     "README.md",
-    "index.d.ts"
+    "index.d.ts",
+    "CHANGELOG.md"
   ],
   "keywords": [
     "encode",
