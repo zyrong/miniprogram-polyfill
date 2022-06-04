@@ -46,7 +46,7 @@
     "ci:test": "pnpm run --filter=\"*...\" test",
     "ci:build": "pnpm run --filter=\"*...\" build && pnpm run build",
     "ci:version": "changeset version",
-    "ci:publish": "pnpm run ci:test && pnpm run ci:build && pnpm publish -r --no-git-checks"
+    "ci:publish": "pnpm run ci:build && pnpm run ci:test && pnpm publish -r --no-git-checks"
   },
   "dependencies": {
     "formdata-encode": "workspace:*",
