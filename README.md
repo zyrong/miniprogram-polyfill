@@ -1,4 +1,5 @@
-# 小程序 polyfill
+# miniprogram-polyfill  ![](https://badgen.net/npm/v/miniprogram-polyfill)  ![](https://badgen.net/npm/types/miniprogram-polyfill) ![](https://badgen.net/npm/dt/miniprogram-polyfill) ![](https://badgen.net/badge/language/typescript/blue)
+小程序polyfill  <br/><br/>
 
 ## packages
 - [miniprogram-blob](https://github.com/zyrong/miniprogram-polyfill/tree/master/packages/blob)
