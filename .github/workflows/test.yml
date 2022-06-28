@@ -9,8 +9,9 @@ on:
     paths-ignore: # 下列文件的变更不触发
       - README.md
       - LICENSE
-      - miniprogram-tests
-      - builds
+      - .github/**
+      - miniprogram-tests/**
+      - builds/**
   pull_request:
     branches: [ master ]
 

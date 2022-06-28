@@ -4,6 +4,12 @@ on:
   push:
     branches:
       - master
+    paths-ignore: # 下列文件的变更不触发
+      - README.md
+      - LICENSE
+      - .github/**
+      - miniprogram-tests/**
+      - builds/**
 
 env:
   CI: true
