@@ -13,8 +13,9 @@ module.exports = {
     'plugin:prettier/recommended',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'prettier'],
   overrides: [
     {
       files: [
@@ -27,6 +28,7 @@ module.exports = {
     },
   ],
   rules: {
+    'prettier/prettier': 'error',
     'no-empty': 0,
     '@typescript-eslint/no-empty-function': 0,
   },
