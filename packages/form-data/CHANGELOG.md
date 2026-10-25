@@ -1,5 +1,16 @@
 # miniprogram-formdata
 
+## 3.0.0
+
+### Major Changes
+
+- fix: disable coverage collection to avoid source-map wasm initialization errorstest: add tests for blob filename semantics in FormData polyfill
+
+### Patch Changes
+
+- Updated dependencies []:
+  - miniprogram-file@3.0.0
+
 ## 2.0.0
 
 ### Major Changes
@@ -10,7 +21,7 @@
   break changes
 
   1. 编译目标更改为 es6，如果需要 es5 请使用 1.x 版本
-  2. 删除formdata中私有字段_data，使得属性与浏览器Formdata保持一致
+  2. 删除 formdata 中私有字段\_data，使得属性与浏览器 Formdata 保持一致
 
 ### Patch Changes
 

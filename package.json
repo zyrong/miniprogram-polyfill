@@ -1,6 +1,6 @@
 {
   "name": "miniprogram-polyfill",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": false,
   "description": "小程序 miniprogram polyfill",
   "jsnext:main": "dist/index.es.js",
@@ -33,7 +33,6 @@
     "node": ">=14",
     "pnpm": ">=7.0.0"
   },
-  "packageManager": "pnpm@7.0.0",
   "scripts": {
     "mpTestLink": "gulp -f ./gulpfile.ts mpTestLink",
     "eslint:fix": "eslint ./packages --config ./.eslintrc.js --fix --ext .js,.ts",
@@ -43,9 +42,9 @@
     "build": "gulp -f ./gulpfile.ts build",
     "run-mp-test-lib": "ts-node ./miniprogram-tests/test-lib.ts",
     "release": "ts-node ./builds/release.ts",
+    "ci:version": "changeset version",
     "ci:build": "pnpm run --filter=\"*...\" build && pnpm run build",
     "ci:test": "pnpm run --filter=\"*...\" test",
-    "ci:version": "changeset version",
     "ci:publish": "pnpm run ci:build && pnpm run ci:test && pnpm publish -r --no-git-checks"
   },
   "dependencies": {

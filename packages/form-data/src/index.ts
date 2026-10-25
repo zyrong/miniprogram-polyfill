@@ -33,11 +33,20 @@ if (typeof FormData === 'undefined') {
     filename?: string
   ): [string, FormDataEntryValue] {
     // 兼容其他Blob/File polyfill
-    if (is.blob(value)) {
-      filename = filename || 'blob'
-      value = new File([value], filename)
-    } else if (is.file(value)) {
-      filename = filename || value.name
+    const isBlob = is.blob(value)
+    if (isBlob) {
+      const blobValue = value as Blob
+
+      if (filename !== undefined) {
+        filename = String(filename + '')
+      }
+
+      if (filename !== undefined || isBlob) {
+        value = new File([blobValue], filename ?? 'blob', {
+          type: blobValue.type,
+          lastModified: (blobValue as any).lastModified ?? Date.now(),
+        })
+      }
     }
     return [name, value as FormDataEntryValue]
   }

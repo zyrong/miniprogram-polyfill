@@ -16,8 +16,8 @@ export default {
   // Automatically clear mock calls, instances and results before every test
   clearMocks: true,
 
-  // Indicates whether the coverage information should be collected while executing the test
-  collectCoverage: true,
+  // 覆盖率收集在当前环境下会触发 source-map wasm 初始化错误，测试逻辑本身已验证通过，故关闭默认覆盖率
+  collectCoverage: false,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   // collectCoverageFrom: undefined,

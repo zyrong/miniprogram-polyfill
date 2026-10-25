@@ -115,6 +115,22 @@ it('append()', () => {
   expect(fd.getAll('a')).toEqual(['1', '2'])
 })
 
+it('append() blob filename semantics', () => {
+  const fd = new FormData()
+  const blob = new Blob(['abc'], { type: 'text/plain' })
+
+  fd.append('emptyName', blob, '')
+  fd.append('defaultName', blob)
+  fd.append('customName', blob, 'custom.txt')
+
+  expect(Object.prototype.toString.call(fd.get('emptyName'))).toBe(
+    '[object File]'
+  )
+  expect((fd.get('emptyName') as File).name).toBe('')
+  expect((fd.get('defaultName') as File).name).toBe('blob')
+  expect((fd.get('customName') as File).name).toBe('custom.txt')
+})
+
 it('set()', () => {
   const fd = new FormData()
   fd.append('a', '1')
@@ -133,3 +149,33 @@ it('Object.prototype.toString.call', () => {
   const fd = new FormData()
   expect(Object.prototype.toString.call(fd)).toBe('[object FormData]')
 })
+
+// // test
+// const fd = new FormData()
+// const file = new File(['data'], 'rawFilename', {
+//   type: 'fileType',
+//   lastModified: 33,
+// })
+// fd.append('eqFile', file)
+// fd.get('eqFile') === file
+// fd.append('file', file, 'newFilename')
+// const newFile = fd.get('file')
+// newFile.name // output newFilename
+// newFile.type // output fileType
+// newFile.lastModified // output 33
+// const blob = new Blob(['data'], { type: 'blobType' })
+// fd.append('blob', blob)
+// const fileBlob = fd.get('blob')
+// Object.prototype.toString.call(fileBlob) === '[object File]'
+// fileBlob.name === 'blob'
+// fileBlob.type === 'fileType'
+// fd.append('blobWithName', blob, 'filename')
+// fd.get('blobWithName').name // output filename
+// fd.append('blobToFile', blob)
+// fd.get('blobToFile')
+// class NewBlob extends Blob {}
+// const newBlob = new NewBlob(['data'], {type: 'newBlobType'})
+// fd.append('newBlob', newBlob)
+// const fileNewBlob = fd.get('newBlob')
+// fileNewBlob.name === 'blob'
+// fileNewBlob.type === 'newBlobType'

@@ -1,5 +1,11 @@
 # miniprogram-text-decoder
 
+## 3.0.0
+
+### Major Changes
+
+- fix: disable coverage collection to avoid source-map wasm initialization errorstest: add tests for blob filename semantics in FormData polyfill
+
 ## 2.0.0
 
 ### Major Changes

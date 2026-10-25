@@ -1,5 +1,16 @@
 # miniprogram-file
 
+## 3.0.0
+
+### Major Changes
+
+- fix: disable coverage collection to avoid source-map wasm initialization errorstest: add tests for blob filename semantics in FormData polyfill
+
+### Patch Changes
+
+- Updated dependencies []:
+  - miniprogram-blob@3.0.0
+
 ## 2.0.0
 
 ### Major Changes
