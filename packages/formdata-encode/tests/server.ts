@@ -15,7 +15,11 @@ app.all('*', function (req, res, next) {
 app.post('/post', async (req, res, next) => {
   let flag = 0
   if (req.fields) {
-    if (req.fields['string'] === 'string') {
+    const stringField = req.fields['string']
+    const normalizedStringField = Array.isArray(stringField)
+      ? stringField[0]
+      : stringField
+    if (normalizedStringField === 'string') {
       flag++
     }
   }
